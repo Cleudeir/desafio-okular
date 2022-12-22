@@ -1,26 +1,15 @@
 .main {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   padding: 6rem;
   min-height: 100vh;
-  background-color: silver;
-}
-
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  background-color: blue;
 }
 
 .h1 {
   color: white;
-}
-
-.video {
-  width: 100%;
 }
 
 .video-wrapper {
