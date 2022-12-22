@@ -14,8 +14,10 @@ const VideoPlayerControls = ({ videoElement }) => {
   return (
     <div className={styles.controls} >
       <div className={styles.actions}>
-        <button onClick={togglePlay}>
-          {playerState.isPlaying ? "⏸" : "▶️"}
+        <button className={styles.icons} onClick={togglePlay}>
+          {playerState.isPlaying ?
+            <img src="/icons/pause.png" alt="pause" />
+            : <img src="/icons/play.png" alt="play" />}
         </button>
       </div>
       <input
