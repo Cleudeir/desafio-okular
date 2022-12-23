@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 
 const App = () => {
   const [deviceInfo, setDeviceInfo] = React.useState(false)
+  const [defaultWidth] = React.useState(769)
   const [useTheaterMode, setTheaterMode] = React.useState(false)
   useEffect(() => {
     const dimension = {
@@ -15,11 +16,11 @@ const App = () => {
     console.log(dimension)
     setDeviceInfo(dimension)
 
-    if (window.innerWidth < 769) {
+    if (window.innerWidth < defaultWidth) {
       setTheaterMode(true)
     }
     addEventListener("resize", (event) => {
-      if (window.innerWidth < 769) {
+      if (window.innerWidth < defaultWidth) {
         setTheaterMode(true)
       } else {
         setTheaterMode(false)
@@ -28,7 +29,7 @@ const App = () => {
   }, [])
 
   function theater() {
-    if (window.innerWidth > 769) {
+    if (window.innerWidth > defaultWidth) {
       console.log(!useTheaterMode)
       setTheaterMode(!useTheaterMode)
     }
@@ -38,7 +39,7 @@ const App = () => {
 
       <div className={styles.div1}> Header</div>
       <div className={useTheaterMode ? styles.div2_theater : styles.div2}>
-        <VideoContainer deviceInfo={deviceInfo} theater={theater} /></div>
+        <VideoContainer deviceInfo={deviceInfo} theater={theater} defaultWidth={defaultWidth} /></div>
       <div className={useTheaterMode ? styles.div3_theater : styles.div3}> ListVideos</div>
       <div className={styles.div4}>coments </div>
       <div className={styles.div5}> footer</div>

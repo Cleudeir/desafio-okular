@@ -3,14 +3,13 @@ import styles from '../styles/VideoContainer.module.css'
 import useVideoPlayer from "./hooks/useVideoPlayer";
 import VideoPlayerControls from './VideoPlayerControls';
 
-const VideoContainer = ({ theater, deviceInfo }) => {
+const VideoContainer = ({ theater, deviceInfo, defaultWidth }) => {
   const videoElement = useRef(null);
   const containerElement = useRef(null);
   const controlElement = useRef(null);
   const {
     handleOnTimeUpdate,
     holdOpacityEnter,
-    holdOpacityLeave,
     playerState,
     togglePlay,
     handleVideoProgress,
@@ -20,7 +19,7 @@ const VideoContainer = ({ theater, deviceInfo }) => {
     toggleFullScreen
   } = useVideoPlayer(videoElement, controlElement, containerElement, deviceInfo);
   return (
-    <div className={styles.container} ref={containerElement} onMouseMove={holdOpacityEnter} onMouseEnter={holdOpacityEnter} onMouseLeave={holdOpacityLeave}>
+    <div className={styles.container} ref={containerElement} onMouseMove={holdOpacityEnter}>
       <video
         className={styles.video}
         src='/videos/001.mp4'
@@ -31,6 +30,7 @@ const VideoContainer = ({ theater, deviceInfo }) => {
       <VideoPlayerControls
         playerState={playerState}
         togglePlay={togglePlay}
+        defaultWidth={defaultWidth}
         handleVideoProgress={handleVideoProgress}
         handleVideoSpeed={handleVideoSpeed}
         toggleMute={toggleMute}

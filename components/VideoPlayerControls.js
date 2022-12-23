@@ -9,6 +9,7 @@ const VideoPlayerControls = ({
   handleVolume,
   toggleFullScreen,
   theater,
+  defaultWidth,
   controlElement }) => {
 
   return (
@@ -64,7 +65,7 @@ const VideoPlayerControls = ({
           onChange={(e) => handleVolume(e)}
         />
       </div>
-      {window.innerWidth > 769 && <div className={styles.theater}>
+      {window.innerWidth > defaultWidth && !playerState.fullScreen && <div className={styles.theater}>
         <button className={styles.icons} onClick={theater}>
           <img src="/icons/theater.png" alt="theater" />
         </button>

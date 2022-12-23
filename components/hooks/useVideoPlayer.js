@@ -30,23 +30,25 @@ const useVideoPlayer = (videoElement, controlElement, containerElement, deviceIn
             } else {
                 setTimeout(() => {
                     controlElement.current.style.opacity = 0
-                }, 2000)
+                }, 1000)
             }
         }
     }, [playerState.isPlaying, videoElement]);
 
 
+    let inUseOpacity = false
     const holdOpacityEnter = () => {
         if (controlElement) {
             controlElement.current.style.opacity = 1
+            if (inUseOpacity === false)
+                inUseOpacity = true
+            setTimeout(() => {
+                controlElement.current.style.opacity = 0
+                inUseOpacity = false
+            }, 10000)
         }
     };
 
-    const holdOpacityLeave = () => {
-        if (controlElement && playerState.isPlaying) {
-            controlElement.current.style.opacity = 0
-        }
-    };
 
 
     useEffect(() => {
@@ -189,7 +191,6 @@ const useVideoPlayer = (videoElement, controlElement, containerElement, deviceIn
         handleVideoSpeed,
         toggleMute,
         holdOpacityEnter,
-        holdOpacityLeave,
         handleVolume,
         toggleFullScreen
     };
