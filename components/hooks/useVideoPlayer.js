@@ -7,7 +7,7 @@ const useVideoPlayer = (videoElement, controlElement, containerElement, deviceIn
         currentTime: null,
         durantion: null,
         speed: 1,
-        isMuted: false,
+        isMuted: true,
         fullScreen: false
     });
 
