@@ -8,6 +8,7 @@ const VideoPlayerControls = ({
   toggleMute,
   handleVolume,
   toggleFullScreen,
+  theater,
   controlElement }) => {
 
   return (
@@ -63,9 +64,14 @@ const VideoPlayerControls = ({
           onChange={(e) => handleVolume(e)}
         />
       </div>
+      {window.innerWidth > 769 && <div className={styles.theater}>
+        <button className={styles.icons} onClick={theater}>
+          <img src="/icons/theater.png" alt="theater" />
+        </button>
+      </div>}
       <div className={styles.fullScreen}>
         <button className={styles.icons} onClick={toggleFullScreen}>
-          <img src="/icons/fullscreen.png" alt="pause" />
+          <img src="/icons/fullscreen.png" alt="fullscreen" />
         </button>
       </div>
     </div >

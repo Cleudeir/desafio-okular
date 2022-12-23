@@ -3,7 +3,7 @@ import styles from '../styles/VideoContainer.module.css'
 import useVideoPlayer from "./hooks/useVideoPlayer";
 import VideoPlayerControls from './VideoPlayerControls';
 
-const VideoContainer = ({ setTheaterMode, deviceInfo }) => {
+const VideoContainer = ({ theater, deviceInfo }) => {
   const videoElement = useRef(null);
   const containerElement = useRef(null);
   const controlElement = useRef(null);
@@ -35,7 +35,7 @@ const VideoContainer = ({ setTheaterMode, deviceInfo }) => {
         handleVideoSpeed={handleVideoSpeed}
         toggleMute={toggleMute}
         controlElement={controlElement}
-        setTheaterMode={setTheaterMode}
+        theater={theater}
         toggleFullScreen={toggleFullScreen}
         handleVolume={handleVolume} />
     </div >
