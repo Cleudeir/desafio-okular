@@ -3,7 +3,7 @@ import styles from '../styles/VideoContainer.module.css'
 import useVideoPlayer from "./hooks/useVideoPlayer";
 import VideoPlayerControls from './VideoPlayerControls';
 
-const VideoContainer = ({ setTheaterMode }) => {
+const VideoContainer = ({ setTheaterMode, deviceInfo }) => {
   const videoElement = useRef(null);
   const containerElement = useRef(null);
   const controlElement = useRef(null);
@@ -18,8 +18,7 @@ const VideoContainer = ({ setTheaterMode }) => {
     toggleMute,
     handleVolume,
     toggleFullScreen
-  } = useVideoPlayer(videoElement, controlElement, containerElement);
-
+  } = useVideoPlayer(videoElement, controlElement, containerElement, deviceInfo);
   return (
     <div className={styles.container} ref={containerElement} onMouseMove={holdOpacityEnter} onMouseEnter={holdOpacityEnter} onMouseLeave={holdOpacityLeave}>
       <video

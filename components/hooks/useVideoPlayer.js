@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-const useVideoPlayer = (videoElement, controlElement, containerElement) => {
+const useVideoPlayer = (videoElement, controlElement, containerElement, deviceInfo) => {
     const [playerState, setPlayerState] = useState({
         isPlaying: false,
         volume: 50,
@@ -35,14 +35,12 @@ const useVideoPlayer = (videoElement, controlElement, containerElement) => {
 
 
     const holdOpacityEnter = () => {
-        console.log('enter controlElement', controlElement)
         if (controlElement) {
             controlElement.current.style.opacity = 1
         }
     };
 
     const holdOpacityLeave = () => {
-        console.log('out controlElement', controlElement, playerState)
         if (controlElement && playerState.isPlaying) {
             controlElement.current.style.opacity = 0
         }
@@ -98,7 +96,6 @@ const useVideoPlayer = (videoElement, controlElement, containerElement) => {
     };
     const handleVolume = (event) => {
         const volume = Number(event.target.value);
-        console.log(volume)
         videoElement.current.volume = volume / 100;
         setPlayerState({
             ...playerState,
@@ -107,23 +104,36 @@ const useVideoPlayer = (videoElement, controlElement, containerElement) => {
     };
 
     const toggleMute = () => {
-        console.log('click')
         setPlayerState({
             ...playerState,
             isMuted: !playerState.isMuted,
         });
     };
     const toggleFullScreen = () => {
-        console.log('click full')
         setPlayerState({
             ...playerState,
             fullScreen: !playerState.fullScreen,
         });
         if (document.documentElement) {
             if (playerState.fullScreen === false) {
-                containerElement.current.style.position = 'absolute'
-                containerElement.current.style.top = 0
-                containerElement.current.style.left = 0
+
+                if (deviceInfo && deviceInfo.isPortrait) {
+                    containerElement.current.style.position = 'absolute'
+                    containerElement.current.style.transform = 'rotate(90deg)'
+                    containerElement.current.style.transformOrigin = 'bottom left'
+                    containerElement.current.style.padding = 0
+                    containerElement.current.style.marginTop = '-100vw'
+                    containerElement.current.style.objectFit = 'cover'
+                    containerElement.current.style.top = 0
+                    containerElement.current.style.left = 0
+                    containerElement.current.style.height = '100vw'
+                    containerElement.current.style.width = '101vh'
+                } else {
+                    containerElement.current.style.position = 'absolute'
+                    containerElement.current.style.top = 0
+                    containerElement.current.style.left = 0
+                }
+
                 if (document.documentElement.requestFullscreen) {
                     document.documentElement.requestFullscreen();
                 } else if (document.documentElement.webkitRequestFullscreen) {
@@ -133,15 +143,24 @@ const useVideoPlayer = (videoElement, controlElement, containerElement) => {
                 }
             }
             else {
+                function rotateScreen() {
+                    containerElement.current.style.position = 'relative'
+                    containerElement.current.style.transform = 'rotate(0deg)'
+                    containerElement.current.style.padding = '0px'
+                    containerElement.current.style.margin = '0px'
+                    containerElement.current.style.objectFit = 'cover'
+                    containerElement.current.style.height = 'auto'
+                    containerElement.current.style.width = '100%'
+                }
                 if (document.mozCancelFullScreen) {
                     document.mozCancelFullScreen();
-                    containerElement.current.style.position = 'relative'
+                    rotateScreen()
                 } else if (document.webkitExitFullscreen) {
                     document.webkitExitFullscreen();
-                    containerElement.current.style.position = 'relative'
+                    rotateScreen()
                 } else if (document.exitFullscreen) {
                     document.exitFullscreen();
-                    containerElement.current.style.position = 'relative'
+                    rotateScreen()
                 }
             }
         }

@@ -4,27 +4,21 @@ import VideoContainer from '../components/videoContainer';
 import { useEffect } from 'react';
 
 const App = () => {
-  const [useDimensions, setDimensions] = React.useState(false)
+  const [deviceInfo, setDeviceInfo] = React.useState(false)
   const [useTheaterMode, setTheaterMode] = React.useState(false)
   useEffect(() => {
-    let dimension = {
+    const dimension = {
       height: window.innerHeight,
-      width: window.innerWidth
+      width: window.innerWidth,
+      isPortrait: window.screen.width < window.screen.height
     }
-    setDimensions(dimension)
-    addEventListener("resize", () => {
-      dimension = {
-        height: window.innerHeight,
-        width: window.innerWidth
-      }
-      console.log(dimension)
-      setDimensions(dimension)
-    });
+    console.log(dimension)
+    setDeviceInfo(dimension)
   }, [])
 
   return (
-    <div className={styles.main}>
-      {useDimensions && <VideoContainer setTheaterMode={setTheaterMode} />}
+    deviceInfo && <div className={styles.main}>
+      <VideoContainer deviceInfo={deviceInfo} setTheaterMode={setTheaterMode} />
     </div >
   );
 };
