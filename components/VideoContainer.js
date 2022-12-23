@@ -24,7 +24,6 @@ const VideoContainer = ({ theater, deviceInfo, defaultWidth }) => {
         className={styles.video}
         src='/videos/001.mp4'
         ref={videoElement}
-        onClick={togglePlay}
         onTimeUpdate={handleOnTimeUpdate}
       />
       <VideoPlayerControls
