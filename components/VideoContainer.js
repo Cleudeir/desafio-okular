@@ -5,6 +5,7 @@ import VideoPlayerControls from './VideoPlayerControls';
 
 const VideoContainer = ({ setTheaterMode }) => {
   const videoElement = useRef(null);
+  const containerElement = useRef(null);
   const controlElement = useRef(null);
   const {
     handleOnTimeUpdate,
@@ -15,14 +16,14 @@ const VideoContainer = ({ setTheaterMode }) => {
     handleVideoProgress,
     handleVideoSpeed,
     toggleMute,
-    handleVolume
-  } = useVideoPlayer(videoElement, controlElement);
+    handleVolume,
+    toggleFullScreen
+  } = useVideoPlayer(videoElement, controlElement, containerElement);
 
   return (
-    <div className={styles.container} onMouseEnter={holdOpacityEnter} onMouseLeave={holdOpacityLeave}>
+    <div className={styles.container} ref={containerElement} onMouseMove={holdOpacityEnter} onMouseEnter={holdOpacityEnter} onMouseLeave={holdOpacityLeave}>
       <video
         className={styles.video}
-
         src='/videos/001.mp4'
         ref={videoElement}
         onClick={togglePlay}
@@ -36,6 +37,7 @@ const VideoContainer = ({ setTheaterMode }) => {
         toggleMute={toggleMute}
         controlElement={controlElement}
         setTheaterMode={setTheaterMode}
+        toggleFullScreen={toggleFullScreen}
         handleVolume={handleVolume} />
     </div >
   );

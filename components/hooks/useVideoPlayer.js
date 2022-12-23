@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
-const useVideoPlayer = (videoElement, controlElement) => {
+const useVideoPlayer = (videoElement, controlElement, containerElement) => {
     const [playerState, setPlayerState] = useState({
         isPlaying: false,
         volume: 50,
         progress: 0,
         speed: 1,
         isMuted: false,
+        fullScreen: false
     });
 
     const togglePlay = () => {
@@ -27,14 +28,11 @@ const useVideoPlayer = (videoElement, controlElement) => {
             } else {
                 setTimeout(() => {
                     controlElement.current.style.opacity = 0
-                }, 1000)
+                }, 2000)
             }
         }
     }, [playerState.isPlaying, videoElement]);
 
-    useEffect(() => {
-        // console.log(playerState)
-    }, [playerState]);
 
     const holdOpacityEnter = () => {
         console.log('enter controlElement', controlElement)
@@ -63,6 +61,22 @@ const useVideoPlayer = (videoElement, controlElement) => {
             ...playerState,
             progress,
         });
+        if (videoElement.current.currentTime === videoElement.current.duration) {
+            setPlayerState({
+                ...playerState,
+                isPlaying: false,
+            });
+            if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+                containerElement.current.style.position = 'relative'
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+                containerElement.current.style.position = 'relative'
+            } else if (document.exitFullscreen) {
+                document.exitFullscreen();
+                containerElement.current.style.position = 'relative'
+            }
+        }
     };
 
     const handleVideoProgress = (event) => {
@@ -99,6 +113,39 @@ const useVideoPlayer = (videoElement, controlElement) => {
             isMuted: !playerState.isMuted,
         });
     };
+    const toggleFullScreen = () => {
+        console.log('click full')
+        setPlayerState({
+            ...playerState,
+            fullScreen: !playerState.fullScreen,
+        });
+        if (document.documentElement) {
+            if (playerState.fullScreen === false) {
+                containerElement.current.style.position = 'absolute'
+                containerElement.current.style.top = 0
+                containerElement.current.style.left = 0
+                if (document.documentElement.requestFullscreen) {
+                    document.documentElement.requestFullscreen();
+                } else if (document.documentElement.webkitRequestFullscreen) {
+                    document.documentElement.webkitRequestFullscreen();
+                } else if (document.documentElement.msRequestFullscreen) {
+                    document.documentElement.msRequestFullscreen();
+                }
+            }
+            else {
+                if (document.mozCancelFullScreen) {
+                    document.mozCancelFullScreen();
+                    containerElement.current.style.position = 'relative'
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                    containerElement.current.style.position = 'relative'
+                } else if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                    containerElement.current.style.position = 'relative'
+                }
+            }
+        }
+    };
 
     return {
         playerState,
@@ -109,7 +156,8 @@ const useVideoPlayer = (videoElement, controlElement) => {
         toggleMute,
         holdOpacityEnter,
         holdOpacityLeave,
-        handleVolume
+        handleVolume,
+        toggleFullScreen
     };
 };
 export default useVideoPlayer

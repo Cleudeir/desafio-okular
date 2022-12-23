@@ -7,6 +7,7 @@ const VideoPlayerControls = ({
   handleVideoSpeed,
   toggleMute,
   handleVolume,
+  toggleFullScreen,
   controlElement }) => {
 
   return (
@@ -27,21 +28,19 @@ const VideoPlayerControls = ({
         onChange={(e) => handleVideoProgress(e)}
       />
       <div className={styles.velocity}>
-        <h5>
-          Velocidade:
-        </h5>
+        <img src="/icons/playRate.png" alt="volume" />
         <select
           value={playerState.speed}
           onChange={(e) => handleVideoSpeed(e)}
         >
-          <option value="0.25">0.25</option>
-          <option value="0.50">0.50</option>
-          <option value="0.75">0.75</option>
+          <option value="0.25">x0.25</option>
+          <option value="0.50">x0.50</option>
+          <option value="0.75">x0.75</option>
           <option value="1">Normal</option>
-          <option value="1.25">1.25</option>
-          <option value="1.50">1.25</option>
-          <option value="1.75">1.25</option>
-          <option value="2">2</option>
+          <option value="1.25">x1.25</option>
+          <option value="1.50">x1.25</option>
+          <option value="1.75">x1.25</option>
+          <option value="2">x2</option>
         </select>
       </div>
       <div className={styles.volume} >
@@ -61,7 +60,11 @@ const VideoPlayerControls = ({
           onChange={(e) => handleVolume(e)}
         />
       </div>
-
+      <div className={styles.fullScreen}>
+        <button className={styles.icons} onClick={toggleFullScreen}>
+          <img src="/icons/fullscreen.png" alt="pause" />
+        </button>
+      </div>
     </div >
   );
 };

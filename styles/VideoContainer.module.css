@@ -4,9 +4,14 @@
     justify-content: center;
     align-items: center;
     background: red;
+    width: 100%;
 }
 
 .video {
-    width: inherit;
-    height: auto;
+    width: 100%;
+    position: relative;
+}
+
+.video::-webkit-media-controls {
+    display: none !important;
 }
