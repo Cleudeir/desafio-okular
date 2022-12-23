@@ -24,8 +24,7 @@ const App = () => {
 
   return (
     <div className={styles.main}>
-      {useDimensions && <VideoContainer setTheaterMode={setTheaterMode}
-        useDimensions={useDimensions} />}
+      {useDimensions && <VideoContainer setTheaterMode={setTheaterMode} />}
     </div >
   );
 };
