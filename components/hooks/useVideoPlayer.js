@@ -1,24 +1,55 @@
 import { useState, useEffect } from "react";
-const useVideoPlayer = (videoElement) => {
+const useVideoPlayer = (videoElement, controlElement) => {
     const [playerState, setPlayerState] = useState({
         isPlaying: false,
+        volume: 50,
         progress: 0,
         speed: 1,
         isMuted: false,
     });
 
     const togglePlay = () => {
-        setPlayerState({
+        const status = {
             ...playerState,
             isPlaying: !playerState.isPlaying,
-        });
+        }
+        setPlayerState(status);
     };
 
     useEffect(() => {
         playerState.isPlaying
             ? videoElement.current.play()
             : videoElement.current.pause();
+
+        if (controlElement) {
+            if (!playerState.isPlaying) {
+                controlElement.current.style.opacity = 1
+            } else {
+                setTimeout(() => {
+                    controlElement.current.style.opacity = 0
+                }, 1000)
+            }
+        }
     }, [playerState.isPlaying, videoElement]);
+
+    useEffect(() => {
+        // console.log(playerState)
+    }, [playerState]);
+
+    const holdOpacityEnter = () => {
+        console.log('enter controlElement', controlElement)
+        if (controlElement) {
+            controlElement.current.style.opacity = 1
+        }
+    };
+
+    const holdOpacityLeave = () => {
+        console.log('out controlElement', controlElement, playerState)
+        if (controlElement && playerState.isPlaying) {
+            controlElement.current.style.opacity = 0
+        }
+    };
+
 
     useEffect(() => {
         playerState.isMuted
@@ -51,8 +82,18 @@ const useVideoPlayer = (videoElement) => {
             speed,
         });
     };
+    const handleVolume = (event) => {
+        const volume = Number(event.target.value);
+        console.log(volume)
+        videoElement.current.volume = volume / 100;
+        setPlayerState({
+            ...playerState,
+            volume,
+        });
+    };
 
     const toggleMute = () => {
+        console.log('click')
         setPlayerState({
             ...playerState,
             isMuted: !playerState.isMuted,
@@ -66,6 +107,9 @@ const useVideoPlayer = (videoElement) => {
         handleVideoProgress,
         handleVideoSpeed,
         toggleMute,
+        holdOpacityEnter,
+        holdOpacityLeave,
+        handleVolume
     };
 };
 export default useVideoPlayer

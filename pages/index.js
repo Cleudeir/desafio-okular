@@ -5,13 +5,12 @@ import { useEffect } from 'react';
 
 const App = () => {
   const [useDimensions, setDimensions] = React.useState(false)
-  const [useTheaterMode, setTheaterMode] = React.useState(.8)
+  const [useTheaterMode, setTheaterMode] = React.useState(false)
   useEffect(() => {
     let dimension = {
       height: window.innerHeight,
       width: window.innerWidth
     }
-    console.log(dimension)
     setDimensions(dimension)
     addEventListener("resize", () => {
       dimension = {
@@ -26,7 +25,7 @@ const App = () => {
   return (
     <div className={styles.main}>
       {useDimensions && <VideoContainer setTheaterMode={setTheaterMode}
-        style={{ width: useDimensions.width * useTheaterMode }} />}
+        useDimensions={useDimensions} />}
     </div >
   );
 };
