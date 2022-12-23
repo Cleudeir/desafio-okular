@@ -23,7 +23,7 @@
 .progress {
     width: 100%;
     height: 30px;
-    max-width: 30px;
+    cursor: pointer;
 }
 
 .icons {
@@ -31,6 +31,7 @@
     border: none;
     height: 30px;
     width: 100%;
+    cursor: pointer;
 }
 
 .icons img {
@@ -40,7 +41,42 @@
     filter: invert(1);
 }
 
-.velocity {}
+.velocity {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    height: 30px;
+}
+
+.velocity h5 {
+    font-family: inherit;
+    font-size: inherit;
+    padding: 0px 3px;
+}
+
+.velocity select {
+    appearance: none;
+    background-color: inherit;
+    border: none;
+    padding: 0px 4px;
+    margin: 0;
+    width: 100%;
+    font-family: inherit;
+    font-size: inherit;
+    cursor: pointer;
+    line-height: inherit;
+    height: 30px;
+    text-align: center;
+}
+
+
+.velocity select option {
+    background-color: black;
+    border: none;
+    text-align: center;
+}
+
 
 .volume {
     display: flex;
@@ -50,9 +86,9 @@
 }
 
 .volume input {
+    cursor: pointer;
     opacity: 0;
     width: 100%;
-    min-width: 80px;
     height: 30px;
 }
 

@@ -26,20 +26,24 @@ const VideoPlayerControls = ({
         value={playerState.progress}
         onChange={(e) => handleVideoProgress(e)}
       />
-      <select
-        className={styles.velocity}
-        value={playerState.speed}
-        onChange={(e) => handleVideoSpeed(e)}
-      >
-        <option value="0.25">0.25x</option>
-        <option value="0.50">0.50x</option>
-        <option value="0.75">0.75x</option>
-        <option value="1">1x</option>
-        <option value="1.25">1.25x</option>
-        <option value="1.50">1.25x</option>
-        <option value="1.75">1.25x</option>
-        <option value="2">2x</option>
-      </select>
+      <div className={styles.velocity}>
+        <h5>
+          Velocidade:
+        </h5>
+        <select
+          value={playerState.speed}
+          onChange={(e) => handleVideoSpeed(e)}
+        >
+          <option value="0.25">0.25</option>
+          <option value="0.50">0.50</option>
+          <option value="0.75">0.75</option>
+          <option value="1">Normal</option>
+          <option value="1.25">1.25</option>
+          <option value="1.50">1.25</option>
+          <option value="1.75">1.25</option>
+          <option value="2">2</option>
+        </select>
+      </div>
       <div className={styles.volume} >
         <button className={styles.icons} onClick={toggleMute}>
           {!playerState.isMuted ? (
