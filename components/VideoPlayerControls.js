@@ -19,6 +19,9 @@ const VideoPlayerControls = ({
             : <img src="/icons/play.png" alt="play" />}
         </button>
       </div>
+      <div className={styles.times} >
+        {playerState.duration ? <h5>{playerState.currentTime} / {playerState.duration}</h5> : <h5>0:00 / 0:00</h5>}
+      </div>
       <input
         className={styles.progress}
         type="range"

@@ -3,13 +3,14 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: red;
+    background: black;
     width: 100%;
 }
 
 .video {
     width: 100%;
     height: auto;
+    max-height: 100vh;
 }
 
 .video::-webkit-media-controls {

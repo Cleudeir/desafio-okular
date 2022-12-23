@@ -4,6 +4,8 @@ const useVideoPlayer = (videoElement, controlElement, containerElement, deviceIn
         isPlaying: false,
         volume: 50,
         progress: 0,
+        currentTime: null,
+        durantion: null,
         speed: 1,
         isMuted: false,
         fullScreen: false
@@ -53,11 +55,24 @@ const useVideoPlayer = (videoElement, controlElement, containerElement, deviceIn
             : (videoElement.current.muted = false);
     }, [playerState.isMuted, videoElement]);
 
+    function convertTime(value) {
+        const min = Math.floor(value / 60)
+        let sec = Math.floor((value % 60 ? value % 60 : '00'))
+        if (sec < 10) {
+            sec = "0" + sec
+        }
+        return min + ":" + sec
+    }
+
     const handleOnTimeUpdate = () => {
         const progress = (videoElement.current.currentTime / videoElement.current.duration) * 100;
+        const currentTime = convertTime(videoElement.current.currentTime)
+        const duration = convertTime(videoElement.current.duration)
         setPlayerState({
             ...playerState,
             progress,
+            currentTime,
+            duration
         });
         if (videoElement.current.currentTime === videoElement.current.duration) {
             setPlayerState({

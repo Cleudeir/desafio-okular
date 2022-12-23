@@ -13,10 +13,19 @@
     border: 1px solid rgba(255, 255, 255, 0.18);
     transition: all 1s ease-in-out;
     opacity: 0;
+    font-size: 10px;
 }
 
 .video:hover>.controls {
     opacity: 1;
+}
+
+.actions {
+    margin: 0px 5px;
+}
+
+.times {
+    white-space: nowrap;
 }
 
 .progress {
@@ -60,14 +69,14 @@
 .velocity h5 {
     font-family: inherit;
     font-size: inherit;
-    padding: 0px 3px;
+    padding: 0px 2px;
 }
 
 .velocity select {
     appearance: none;
     background-color: inherit;
     border: none;
-    padding: 0px 4px;
+    padding: 0px 2px;
     margin: 0;
     font-family: inherit;
     font-size: inherit;
@@ -132,4 +141,16 @@
 .fullScreen img {
     width: 20px;
     height: 20px;
+}
+
+@media (min-width: 480px) and (max-width: 760px) {
+    .controls {
+        font-size: 14px;
+    }
+}
+
+@media (min-width: 760px) {
+    .controls {
+        font-size: 16px;
+    }
 }
