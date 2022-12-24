@@ -2,14 +2,15 @@ import { useState, useEffect } from "react";
 const useVideoPlayer = (videoElement, controlElement, containerElement, deviceInfo) => {
     const [playerState, setPlayerState] = useState({
         isPlaying: false,
-        volume: 50,
+        volume: 20,
         progress: 0,
         currentTime: null,
         durantion: null,
         speed: 1,
-        isMuted: true,
+        isMuted: false,
         fullScreen: false
     });
+
 
     const togglePlay = () => {
         const status = {
@@ -28,28 +29,25 @@ const useVideoPlayer = (videoElement, controlElement, containerElement, deviceIn
             if (!playerState.isPlaying) {
                 controlElement.current.style.opacity = 1
             } else {
-                setTimeout(() => {
-                    controlElement.current.style.opacity = 0
-                }, 1000)
+                holdOpacityEnter()
             }
         }
     }, [playerState.isPlaying, videoElement]);
 
 
-    let inUseOpacity = false
+    let inUseHidden = false
+    let timeHidden;
     const holdOpacityEnter = () => {
         if (controlElement) {
             controlElement.current.style.opacity = 1
-            if (inUseOpacity === false)
-                inUseOpacity = true
-            setTimeout(() => {
+            if (inUseHidden === true) { clearTimeout(timeHidden) }
+            inUseHidden = true
+            timeHidden = setTimeout(() => {
                 controlElement.current.style.opacity = 0
-                inUseOpacity = false
-            }, 10000)
+                inUseHidden = false
+            }, 5000)
         }
     };
-
-
 
     useEffect(() => {
         playerState.isMuted

@@ -5,7 +5,7 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    background: rgba(255, 255, 255, 0.25);
+    background: rgba(50, 50, 50, 0.5);
     box-shadow: 0 8px 32px 0 rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
@@ -20,12 +20,13 @@
     opacity: 1;
 }
 
-.actions {
+.play {
     margin: 0px 5px;
 }
 
 .times {
     white-space: nowrap;
+    color: white
 }
 
 .progress {
@@ -76,22 +77,27 @@
     appearance: none;
     background-color: inherit;
     border: none;
-    padding: 0px 2px;
-    margin: 0;
+    padding: 5px;
+    margin: 2px;
     font-family: inherit;
-    font-size: inherit;
+    font-size: 0.9em;
     cursor: pointer;
     line-height: inherit;
     height: 30px;
     text-align: center;
+    color: white;
 }
 
 
 .velocity select option {
-    background-color: black;
-    border: none;
-    text-align: center;
+    background-color: rgba(50, 50, 50, 1);
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 99;
 }
+
 
 
 .volume {
@@ -119,6 +125,7 @@
     position: absolute;
     width: 80px;
     bottom: 0;
+    z-index: -99;
 }
 
 .volume:hover input {
@@ -131,6 +138,7 @@
     position: absolute;
     width: 80px;
     bottom: 0;
+    z-index: 1;
 }
 
 .theater {
