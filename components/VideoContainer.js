@@ -3,22 +3,25 @@ import styles from '../styles/VideoContainer.module.css'
 import useVideoPlayer from "../hooks/useVideoPlayer";
 import VideoPlayerControls from './VideoPlayerControls';
 
-const VideoContainer = ({ theater, deviceInfo, defaultWidth }) => {
+const VideoContainer = ({ currentVideo, currentVideoChange, theater, deviceInfo, defaultWidth }) => {
   const videoElement = useRef(null);
   const containerElement = useRef(null);
   const controlElement = useRef(null);
   const playerHook = useVideoPlayer(videoElement, controlElement, containerElement, deviceInfo);
-  const { holdOpacityEnter, handleOnTimeUpdate } = playerHook
+  const { togglePlay, holdOpacityEnter, handleOnTimeUpdate } = playerHook
 
   return (
-    <div className={styles.container} ref={containerElement} onMouseMove={holdOpacityEnter}>
+    currentVideo && <div className={styles.container} ref={containerElement} onMouseMove={holdOpacityEnter}>
       <video
         className={styles.video}
-        src='/videos/001.mp4'
+        src={currentVideo.url}
+        poster={currentVideo.poster}
         ref={videoElement}
         onTimeUpdate={handleOnTimeUpdate}
+        onClick={() => { !deviceInfo.isPortrait ? togglePlay() : '' }}
       />
       <VideoPlayerControls
+        currentVideoChange={currentVideoChange}
         playerHook={playerHook}
         controlElement={controlElement}
         defaultWidth={defaultWidth}

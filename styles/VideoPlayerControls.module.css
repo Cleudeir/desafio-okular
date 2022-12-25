@@ -1,9 +1,10 @@
-.controls {
-    height: 40px;
-    margin-top: -40px;
+.container {
+    height: 35px;
+    margin-top: -35px;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     width: 100%;
     background: rgba(50, 50, 50, 0.5);
     box-shadow: 0 8px 32px 0 rgba(255, 255, 255, 0.1);
@@ -13,8 +14,29 @@
     border: 1px solid rgba(255, 255, 255, 0.18);
     transition: all 1s ease-in-out;
     opacity: 0;
-    font-size: 10px;
+    font-size: 12px;
 }
+
+.progress {
+    height: 5px;
+    cursor: pointer;
+    /* topo | direita | inferior | esquerda */
+    margin: -10px 0px 5px 0px;
+    width: 100% !important;
+    padding: 0px;
+}
+
+.progress input {
+    width: 100% !important
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
 
 .video:hover>.controls {
     opacity: 1;
@@ -24,23 +46,28 @@
     margin: 0px 5px;
 }
 
+.changeVideo {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    margin: 0px 5px;
+}
+
+.changeVideo img {
+    margin: 0px 3px;
+    width: 10px;
+    height: auto;
+}
+
 .times {
     white-space: nowrap;
     color: white
 }
 
-.progress {
-    width: 100%;
-    height: 30px;
-    cursor: pointer;
-    margin: 0px 5px;
-}
 
 .icons {
     background-color: transparent;
     border: none;
-    height: 30px;
-    width: 100%;
     cursor: pointer;
 }
 
@@ -56,7 +83,6 @@
     justify-content: center;
     align-items: center;
     width: auto;
-    height: 30px;
     margin: 0px 5px;
 }
 
@@ -74,31 +100,27 @@
 }
 
 .velocity select {
+    width: auto;
     appearance: none;
     background-color: inherit;
     border: none;
     padding: 5px;
     margin: 2px;
     font-family: inherit;
-    font-size: 0.9em;
-    cursor: pointer;
+    font-size: inherit;
     line-height: inherit;
+    cursor: pointer;
     height: 30px;
     text-align: center;
     color: white;
+    width: inherit;
 }
 
 
 .velocity select option {
     background-color: rgba(50, 50, 50, 1);
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    z-index: 99;
+    width: inherit;
 }
-
-
 
 .volume {
     display: flex;

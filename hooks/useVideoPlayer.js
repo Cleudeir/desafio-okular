@@ -1,16 +1,30 @@
 import { useState, useEffect } from "react";
 const useVideoPlayer = (videoElement, controlElement, containerElement, deviceInfo) => {
+    function convertTime(value) {
+        if (value === 0) {
+            return '0:00'
+        }
+        let min = Math.floor(value / 60)
+        if (!min || isNaN(min)) {
+            min = "0"
+        }
+        let sec = Math.floor((value % 60 ? value % 60 : '00'))
+        if (sec < 10) {
+            sec = "0" + sec
+        }
+        return min + ":" + sec
+    }
+
     const [playerState, setPlayerState] = useState({
         isPlaying: false,
         volume: 20,
         progress: 0,
-        currentTime: null,
-        durantion: null,
+        currentTime: convertTime(0),
+        duration: convertTime(0),
         speed: 1,
         isMuted: false,
         fullScreen: false
     });
-
 
     const togglePlay = () => {
         const status = {
@@ -55,14 +69,7 @@ const useVideoPlayer = (videoElement, controlElement, containerElement, deviceIn
             : (videoElement.current.muted = false);
     }, [playerState.isMuted, videoElement]);
 
-    function convertTime(value) {
-        const min = Math.floor(value / 60)
-        let sec = Math.floor((value % 60 ? value % 60 : '00'))
-        if (sec < 10) {
-            sec = "0" + sec
-        }
-        return min + ":" + sec
-    }
+
 
     const handleOnTimeUpdate = () => {
         const progress = (videoElement.current.currentTime / videoElement.current.duration) * 100;
@@ -124,14 +131,86 @@ const useVideoPlayer = (videoElement, controlElement, containerElement, deviceIn
             isMuted: !playerState.isMuted,
         });
     };
+
     const toggleFullScreen = () => {
-        setPlayerState({
+        fullScreenStyle()
+        console.log(document.fullscreen)
+        const state = {
             ...playerState,
             fullScreen: !playerState.fullScreen,
-        });
+        }
+        setPlayerState(state);
+    };
+
+    let countEffect = 0
+
+    useEffect(() => {
+        if (countEffect === 0) {
+            countEffect += 1
+            addEventListener("fullscreenchange", (event) => {
+                if (document.fullscreen === false) {
+                    console.log(document.fullscreen, countEffect)
+                    if (countEffect === 1) {
+                        const state = {
+                            ...playerState,
+                            fullScreen: false,
+                        }
+                        setPlayerState(state);
+                        exitFullScreen()
+                    }
+                }
+            });
+        }
+    }, [])
+
+    useEffect(() => {
+        if (countEffect === 0) {
+            addEventListener("fullscreenchange", (event) => {
+                console.log(playerState)
+            });
+            countEffect += 1
+        }
+    }, [])
+
+    function resetVideoInfos() {
+        const reset = {
+            ...playerState,
+            progress: 0,
+            currentTime: convertTime(0),
+            duration: convertTime(0),
+            isPlaying: false,
+        }
+        setTimeout(() => {
+            setPlayerState(reset);
+        }, 100)
+
+    }
+
+    function exitFullScreen() {
+        function rotateScreen() {
+            containerElement.current.style.position = 'relative'
+            containerElement.current.style.transform = 'rotate(0deg)'
+            containerElement.current.style.padding = '0px'
+            containerElement.current.style.margin = '0px'
+            containerElement.current.style.objectFit = 'cover'
+            containerElement.current.style.height = 'auto'
+            containerElement.current.style.width = '100%'
+        }
+        if (document.mozCancelFullScreen) {
+            document.mozCancelFullScreen();
+            rotateScreen()
+        } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+            rotateScreen()
+        } else if (document.exitFullscreen) {
+            document.exitFullscreen();
+            rotateScreen()
+        }
+    }
+
+    function fullScreenStyle() {
         if (document.documentElement) {
             if (playerState.fullScreen === false) {
-
                 if (deviceInfo && deviceInfo.isPortrait) {
                     containerElement.current.style.position = 'absolute'
                     containerElement.current.style.transform = 'rotate(90deg)'
@@ -142,7 +221,7 @@ const useVideoPlayer = (videoElement, controlElement, containerElement, deviceIn
                     containerElement.current.style.top = 0
                     containerElement.current.style.left = 0
                     containerElement.current.style.height = '100vw'
-                    containerElement.current.style.width = '101vh'
+                    containerElement.current.style.width = '100vh'
                 } else {
                     containerElement.current.style.position = 'absolute'
                     containerElement.current.style.top = 0
@@ -158,28 +237,12 @@ const useVideoPlayer = (videoElement, controlElement, containerElement, deviceIn
                 }
             }
             else {
-                function rotateScreen() {
-                    containerElement.current.style.position = 'relative'
-                    containerElement.current.style.transform = 'rotate(0deg)'
-                    containerElement.current.style.padding = '0px'
-                    containerElement.current.style.margin = '0px'
-                    containerElement.current.style.objectFit = 'cover'
-                    containerElement.current.style.height = 'auto'
-                    containerElement.current.style.width = '100%'
-                }
-                if (document.mozCancelFullScreen) {
-                    document.mozCancelFullScreen();
-                    rotateScreen()
-                } else if (document.webkitExitFullscreen) {
-                    document.webkitExitFullscreen();
-                    rotateScreen()
-                } else if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                    rotateScreen()
-                }
+                exitFullScreen()
             }
         }
-    };
+    }
+
+
 
     return {
         playerState,
@@ -190,7 +253,8 @@ const useVideoPlayer = (videoElement, controlElement, containerElement, deviceIn
         toggleMute,
         holdOpacityEnter,
         handleVolume,
-        toggleFullScreen
+        toggleFullScreen,
+        resetVideoInfos
     };
 };
 export default useVideoPlayer
