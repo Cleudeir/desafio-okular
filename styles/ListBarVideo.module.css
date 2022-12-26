@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  border: solid 1px white;
+  border-radius: 5px;
+  height: auto;
+  padding: 5px 0px;
+  height: 100%;
+}
+.container input {
+  width: 95%;
+  padding: 5px 0px;
+}
+
+.container input::placeholder {
+  font-weight: bold;
+  opacity: 1;
+  text-align: center;
+}
