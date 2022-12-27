@@ -58,7 +58,7 @@ const useVideoPlayer = ({
       timeHidden = setTimeout(() => {
         controlElement.current.style.opacity = 0;
         inUseHidden = false;
-      }, 5000);
+      }, 10000);
     }
   };
 
