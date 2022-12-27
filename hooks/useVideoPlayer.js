@@ -1,25 +1,16 @@
-import { useState, useEffect } from "react";
-const useVideoPlayer = ({
-  videoElement,
-  controlElement,
-  containerElement,
-  deviceInfo,
-  currentVideo,
-  currentVideoChange,
-  playerState,
-  setPlayerState
-}) => {
-
-
+import { useEffect } from "react";
+function useVideoPlayer({
+  videoElement, controlElement, containerElement, deviceInfo, currentVideo, currentVideoChange, playerState, setPlayerState
+}) {
   // Playing --------------------------------------------------------------------------------------
 
-  const togglePlay = () => {
+  function togglePlay() {
     const status = {
       ...playerState,
       isPlaying: !playerState.isPlaying,
     };
     setPlayerState(status);
-  };
+  }
 
   useEffect(() => {
 
@@ -88,8 +79,7 @@ const useVideoPlayer = ({
   }
 
   const handleOnTimeUpdate = () => {
-    const progress =
-      (videoElement.current.currentTime / videoElement.current.duration) * 100;
+    const progress = (videoElement.current.currentTime / videoElement.current.duration) * 100;
     const currentTime = convertTime(videoElement.current.currentTime);
     const duration = convertTime(videoElement.current.duration);
     setPlayerState({
@@ -132,6 +122,10 @@ const useVideoPlayer = ({
       volume,
     });
   };
+  useEffect(() => {
+    const speed = playerState.speed;
+    videoElement.current.playbackRate = speed;
+  }, [playerState.speed]);
 
   // changeVideo  -------------------------------------------------------------------------
 
@@ -144,7 +138,8 @@ const useVideoPlayer = ({
     };
     setTimeout(() => {
       setPlayerState(reset);
-      if (playerState.isPlaying) videoElement.current.play();
+      if (playerState.isPlaying)
+        videoElement.current.play();
       videoElement.current.playbackRate = reset.speed;
     }, 100);
   }, [currentVideo]);
@@ -192,7 +187,7 @@ const useVideoPlayer = ({
     containerElement.current.style.height = "100vw";
     containerElement.current.style.width = "100vh";
     containerElement.current.style.zIndex = "1";
-    containerElement.current.style.overflo = 'hidden'
+    containerElement.current.style.overflo = 'hidden';
   }
   function enterfullScreenStyleWidth() {
     containerElement.current.style.position = "absolute";
@@ -238,11 +233,11 @@ const useVideoPlayer = ({
     if (document.documentElement) {
       if (playerState.fullScreen === false) {
         if (deviceInfo && deviceInfo.isPortrait) {
-          enterfullScreenStylePortrait()
+          enterfullScreenStylePortrait();
         } else {
-          enterfullScreenStyleWidth()
+          enterfullScreenStyleWidth();
         }
-        enterFullScreen()
+        enterFullScreen();
       } else {
         exitFullScreen();
       }
@@ -262,5 +257,5 @@ const useVideoPlayer = ({
     handleVolume,
     toggleFullScreen,
   };
-};
+}
 export default useVideoPlayer;

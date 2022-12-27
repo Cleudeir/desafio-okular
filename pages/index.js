@@ -1,84 +1,19 @@
 import React from "react";
 import styles from "/styles/Home.module.css";
-import { useEffect, useState } from "react";
 import VideoContainer from "../components/VideoContainer";
 import ListBarVideo from "../components/ListBarVideo";
 import Comments from "../components/Comments";
 import Header from "../components/Header";
 import _Footer from '../components/_Footer';
+import useIndex from '../hooks/useIndex';
 
-async function getData() {
-  try {
-    const request = await fetch("/api/videos");
-    return await request.json();
-  } catch (error) {
-    console.log(error)
-  }
-}
+
 const App = () => {
-  const [dataVideos, setDataVideos] = useState(false);
-  const [currentVideo, setCurrentVideo] = useState(false);
-  const [deviceInfo, setDeviceInfo] = useState(false);
-  const [defaultWidth] = useState(769);
-  const [isTheaterMode, setIsTheaterMode] = useState(false)
-  const [playerState, setPlayerState] = useState({
-    isPlaying: false,
-    volume: 100,
-    progress: 0,
-    currentTime: "0:00",
-    duration: "0:00",
-    speed: 1,
-    isMuted: false,
-    fullScreen: false,
-  });
 
-  useEffect(() => {
-    (async () => {
-      const data = await getData();
-      setDataVideos(data);
-      setCurrentVideo(data[0]);
-    })();
-  }, []);
-
-  useEffect(() => {
-    const dimension = {
-      height: window.innerHeight,
-      width: window.innerWidth,
-      isPortrait: window.screen.width < window.screen.height,
-    };
-    setDeviceInfo(dimension);
-
-    if (window.innerWidth < defaultWidth) {
-      setIsTheaterMode(true);
-    }
-    addEventListener("resize", () => {
-      if (window.innerWidth < defaultWidth) {
-        setIsTheaterMode(true);
-      } else {
-        setIsTheaterMode(false);
-      }
-    });
-  }, [defaultWidth]);
-
-  function theater() {
-    if (window.innerWidth > defaultWidth) {
-      setIsTheaterMode(!isTheaterMode);
-    }
-  }
-
-  function currentVideoChange(e) {
-    const index = dataVideos.findIndex((i) => i.title === currentVideo.title);
-    let calcIndex = index + e;
-    if (calcIndex < 0) {
-      calcIndex = 0;
-    }
-    if (calcIndex > dataVideos.length - 1) {
-      calcIndex = dataVideos.length - 1;
-    }
-    setCurrentVideo(dataVideos[calcIndex]);
-  }
+  const { playerState, dataVideos, deviceInfo, currentVideo, setCurrentVideo, currentVideoChange, isTheaterMode, setPlayerState, theater, defaultWidth } = useIndex()
 
   return (
+    playerState &&
     dataVideos &&
     deviceInfo &&
     currentVideo && (
