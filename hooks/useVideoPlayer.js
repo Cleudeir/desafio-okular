@@ -168,6 +168,7 @@ function useVideoPlayer({
             };
             setPlayerState(state);
             exitFullScreen();
+            togglePlay()
           }
         }
       });

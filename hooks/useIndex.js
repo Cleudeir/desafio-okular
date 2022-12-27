@@ -26,7 +26,7 @@ function useIndex() {
             setDataVideos(data);
             setCurrentVideo(data[0]);
             setPlayerState({
-                isPlaying: true,
+                isPlaying: false,
                 volume: 100,
                 progress: 0,
                 currentTime: "0:00",
