@@ -38,6 +38,7 @@
   grid-area: 3 / 2 / 4 / 3;
   height: 100vh;
   overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .div3_fullScreen {
