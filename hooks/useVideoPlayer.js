@@ -6,18 +6,10 @@ const useVideoPlayer = ({
   deviceInfo,
   currentVideo,
   currentVideoChange,
-  setFullMode
+  playerState,
+  setPlayerState
 }) => {
-  const [playerState, setPlayerState] = useState({
-    isPlaying: false,
-    volume: 100,
-    progress: 0,
-    currentTime: convertTime(0),
-    duration: convertTime(0),
-    speed: 1,
-    isMuted: false,
-    fullScreen: false,
-  });
+
 
   // Playing --------------------------------------------------------------------------------------
 
@@ -160,14 +152,12 @@ const useVideoPlayer = ({
   // FullScrenn --------------------------------------------------------------------------------------
 
   const toggleFullScreen = () => {
-
     fullScreenChange();
     const state = {
       ...playerState,
       fullScreen: !playerState.fullScreen,
     };
     setPlayerState(state);
-    setFullMode(state.fullScreen)
   };
 
   let countEffect = 0;
@@ -183,9 +173,7 @@ const useVideoPlayer = ({
               fullScreen: false,
             };
             setPlayerState(state);
-            setFullMode(state.fullScreen)
             exitFullScreen();
-            togglePlay()
           }
         }
       });
