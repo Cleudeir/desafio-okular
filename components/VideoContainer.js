@@ -9,6 +9,7 @@ const VideoContainer = ({
   theater,
   deviceInfo,
   defaultWidth,
+  setFullMode
 }) => {
   const videoElement = useRef(null);
   const containerElement = useRef(null);
@@ -20,6 +21,7 @@ const VideoContainer = ({
     currentVideoChange,
     deviceInfo,
     currentVideo,
+    setFullMode
   });
   const { togglePlay, holdOpacityEnter, handleOnTimeUpdate } = playerHook;
   return (

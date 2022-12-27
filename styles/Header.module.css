@@ -8,6 +8,7 @@
   background-color: rgb(90, 93, 93);
   padding: 0px 10px;
 }
+
 .logo {
   display: flex;
   flex-direction: row;
@@ -15,9 +16,11 @@
   align-items: center;
   cursor: pointer;
 }
+
 .logo img {
   margin: 0px 5px;
 }
+
 .menu {
   display: flex;
   flex-direction: row;
@@ -25,6 +28,7 @@
   align-items: center;
   cursor: pointer;
 }
+
 .menu li {
   margin: 0px 5px;
   list-style: none !important;

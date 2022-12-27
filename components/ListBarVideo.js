@@ -33,7 +33,7 @@ const ListBarVideo = ({ dataVideos, currentVideo, setCurrentVideo }) => {
         />
         {listVideo.map((item) => (
           <CardVideo
-            key={item.title}
+            key={item.title + Math.random()}
             setCurrentVideo={setCurrentVideo}
             item={item}
           />

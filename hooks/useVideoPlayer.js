@@ -6,6 +6,7 @@ const useVideoPlayer = ({
   deviceInfo,
   currentVideo,
   currentVideoChange,
+  setFullMode
 }) => {
   const [playerState, setPlayerState] = useState({
     isPlaying: false,
@@ -18,20 +19,7 @@ const useVideoPlayer = ({
     fullScreen: false,
   });
 
-  function convertTime(value) {
-    if (value === 0) {
-      return "0:00";
-    }
-    let min = Math.floor(value / 60);
-    if (!min || isNaN(min)) {
-      min = "0";
-    }
-    let sec = Math.floor(value % 60 ? value % 60 : "00");
-    if (sec < 10) {
-      sec = "0" + sec;
-    }
-    return min + ":" + sec;
-  }
+  // Playing --------------------------------------------------------------------------------------
 
   const togglePlay = () => {
     const status = {
@@ -55,6 +43,8 @@ const useVideoPlayer = ({
     }
   }, [playerState.isPlaying, videoElement]);
 
+  // opacity ------------------------------------------------------------------------------
+
   let inUseHidden = false;
   let timeHidden;
   const holdOpacityEnter = () => {
@@ -71,11 +61,38 @@ const useVideoPlayer = ({
     }
   };
 
+  // Muted --------------------------------------------------------------------------------
+
   useEffect(() => {
     playerState.isMuted
       ? (videoElement.current.muted = true)
       : (videoElement.current.muted = false);
   }, [playerState.isMuted, videoElement]);
+
+  const toggleMute = () => {
+    setPlayerState({
+      ...playerState,
+      isMuted: !playerState.isMuted,
+    });
+  };
+
+
+  // Progress  ---------------------------------------------------------------------------
+
+  function convertTime(value) {
+    if (value === 0) {
+      return "0:00";
+    }
+    let min = Math.floor(value / 60);
+    if (!min || isNaN(min)) {
+      min = "0";
+    }
+    let sec = Math.floor(value % 60 ? value % 60 : "00");
+    if (sec < 10) {
+      sec = "0" + sec;
+    }
+    return min + ":" + sec;
+  }
 
   const handleOnTimeUpdate = () => {
     const progress =
@@ -93,6 +110,7 @@ const useVideoPlayer = ({
     }
   };
 
+
   const handleVideoProgress = (event) => {
     const manualChange = Number(event.target.value);
     videoElement.current.currentTime =
@@ -102,6 +120,8 @@ const useVideoPlayer = ({
       progress: manualChange,
     });
   };
+
+  // speed  ---------------------------------------------------------------------------
 
   const handleVideoSpeed = (event) => {
     const speed = Number(event.target.value);
@@ -120,24 +140,40 @@ const useVideoPlayer = ({
     });
   };
 
-  const toggleMute = () => {
-    setPlayerState({
+  // changeVideo  -------------------------------------------------------------------------
+
+  useEffect(() => {
+    const reset = {
       ...playerState,
-      isMuted: !playerState.isMuted,
-    });
-  };
+      progress: 0,
+      currentTime: convertTime(0),
+      duration: convertTime(0),
+    };
+    setTimeout(() => {
+      setPlayerState(reset);
+      if (playerState.isPlaying) videoElement.current.play();
+      videoElement.current.playbackRate = reset.speed;
+    }, 100);
+  }, [currentVideo]);
+
+  useEffect(() => {
+    console.log(playerState)
+  }, [playerState]);
+
+  // FullScrenn --------------------------------------------------------------------------------------
 
   const toggleFullScreen = () => {
-    fullScreenStyle();
+
+    fullScreenChange();
     const state = {
       ...playerState,
       fullScreen: !playerState.fullScreen,
     };
+    setFullMode(state.fullScreen)
     setPlayerState(state);
   };
 
   let countEffect = 0;
-
   useEffect(() => {
     if (countEffect === 0) {
       countEffect += 1;
@@ -156,74 +192,78 @@ const useVideoPlayer = ({
     }
   }, []);
 
-  useEffect(() => {
-    const reset = {
-      ...playerState,
-      progress: 0,
-      currentTime: convertTime(0),
-      duration: convertTime(0),
-    };
-    setTimeout(() => {
-      setPlayerState(reset);
-      if (playerState.isPlaying) videoElement.current.play();
-      videoElement.current.playbackRate = reset.speed;
-    }, 100);
-  }, [currentVideo]);
 
+
+  function enterfullScreenStylePortrait() {
+    containerElement.current.style.position = "absolute";
+    containerElement.current.style.transform = "rotate(90deg)";
+    containerElement.current.style.transformOrigin = "bottom left";
+    containerElement.current.style.padding = 0;
+    containerElement.current.style.marginTop = "-100vw";
+    containerElement.current.style.objectFit = "cover";
+    containerElement.current.style.top = 0;
+    containerElement.current.style.left = 0;
+    containerElement.current.style.height = "100vw";
+    containerElement.current.style.width = "100vh";
+    containerElement.current.style.zIndex = "1";
+    containerElement.current.style.overflo = 'hidden'
+  }
+  function enterfullScreenStyleWidth() {
+    containerElement.current.style.position = "absolute";
+    containerElement.current.style.top = 0;
+    containerElement.current.style.left = 0;
+    containerElement.current.style.height = "100%";
+    containerElement.current.style.width = "100%";
+    containerElement.current.style.zIndex = "1";
+  }
+  function exitfullScreenStyle() {
+    containerElement.current.style.position = "relative";
+    containerElement.current.style.transform = "rotate(0deg)";
+    containerElement.current.style.padding = "0px";
+    containerElement.current.style.margin = "0px";
+    containerElement.current.style.objectFit = "cover";
+    containerElement.current.style.height = "auto";
+    containerElement.current.style.width = "100%";
+  }
   function exitFullScreen() {
-    function rotateScreen() {
-      containerElement.current.style.position = "relative";
-      containerElement.current.style.transform = "rotate(0deg)";
-      containerElement.current.style.padding = "0px";
-      containerElement.current.style.margin = "0px";
-      containerElement.current.style.objectFit = "cover";
-      containerElement.current.style.height = "auto";
-      containerElement.current.style.width = "100%";
-    }
     if (document.mozCancelFullScreen) {
       document.mozCancelFullScreen();
-      rotateScreen();
+      exitfullScreenStyle();
     } else if (document.webkitExitFullscreen) {
       document.webkitExitFullscreen();
-      rotateScreen();
+      exitfullScreenStyle();
     } else if (document.exitFullscreen) {
       document.exitFullscreen();
-      rotateScreen();
+      exitfullScreenStyle();
     }
   }
 
-  function fullScreenStyle() {
+  function enterFullScreen() {
+    if (document.documentElement.requestFullscreen) {
+      document.documentElement.requestFullscreen();
+    } else if (document.documentElement.webkitRequestFullscreen) {
+      document.documentElement.webkitRequestFullscreen();
+    } else if (document.documentElement.msRequestFullscreen) {
+      document.documentElement.msRequestFullscreen();
+    }
+  }
+
+  function fullScreenChange() {
     if (document.documentElement) {
       if (playerState.fullScreen === false) {
         if (deviceInfo && deviceInfo.isPortrait) {
-          containerElement.current.style.position = "absolute";
-          containerElement.current.style.transform = "rotate(90deg)";
-          containerElement.current.style.transformOrigin = "bottom left";
-          containerElement.current.style.padding = 0;
-          containerElement.current.style.marginTop = "-100vw";
-          containerElement.current.style.objectFit = "cover";
-          containerElement.current.style.top = 0;
-          containerElement.current.style.left = 0;
-          containerElement.current.style.height = "100vw";
-          containerElement.current.style.width = "100vh";
+          enterfullScreenStylePortrait()
         } else {
-          containerElement.current.style.position = "absolute";
-          containerElement.current.style.top = 0;
-          containerElement.current.style.left = 0;
+          enterfullScreenStyleWidth()
         }
-
-        if (document.documentElement.requestFullscreen) {
-          document.documentElement.requestFullscreen();
-        } else if (document.documentElement.webkitRequestFullscreen) {
-          document.documentElement.webkitRequestFullscreen();
-        } else if (document.documentElement.msRequestFullscreen) {
-          document.documentElement.msRequestFullscreen();
-        }
+        enterFullScreen()
       } else {
         exitFullScreen();
       }
     }
   }
+
+  // return --------------------------------------------------------------------------------------
 
   return {
     playerState,

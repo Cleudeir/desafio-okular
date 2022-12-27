@@ -4,11 +4,12 @@
   justify-content: flex-start;
   align-items: flex-start;
   width: 100%;
-  border: solid 1px white;
   border-radius: 5px;
   color: white;
   padding: 10px;
+  min-height: 300px;
 }
+
 .title {
   color: white;
   font-size: 0.6em;
@@ -16,6 +17,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
 .description {
   color: rgb(100, 97, 93);
   font-size: 0.6em;
@@ -27,14 +29,17 @@
   .title {
     font-size: 0.8em;
   }
+
   .description {
     font-size: 0.8em;
   }
 }
+
 @media (min-width: 760px) {
   .title {
     font-size: 0.9em;
   }
+
   .description {
     font-size: 0.9em;
   }

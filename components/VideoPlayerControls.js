@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "../styles/VideoPlayerControls.module.css";
+import Image from "next/image";
 const VideoPlayerControls = ({
   playerHook,
   theater,
@@ -33,9 +34,9 @@ const VideoPlayerControls = ({
         <div className={styles.play}>
           <button className={styles.icons} onClick={togglePlay}>
             {playerState.isPlaying ? (
-              <img src="/icons/pause.png" alt="pause" />
+              <Image width={30} height={30} src="/icons/pause.png" alt="pause" />
             ) : (
-              <img src="/icons/play.png" alt="play" />
+              <Image width={30} height={30} src="/icons/play.png" alt="play" />
             )}
           </button>
         </div>
@@ -46,7 +47,7 @@ const VideoPlayerControls = ({
               holdOpacityEnter(), currentVideoChange(-1);
             }}
           >
-            <img src="/icons/befor.png" alt="befor" />
+            <Image width={30} height={30} src="/icons/befor.png" alt="befor" />
           </button>
           <button
             className={styles.icons}
@@ -55,7 +56,7 @@ const VideoPlayerControls = ({
               currentVideoChange(1);
             }}
           >
-            <img src="/icons/next.png" alt="next" />
+            <Image width={30} height={30} src="/icons/next.png" alt="next" />
           </button>
         </div>
         <div className={styles.times}>
@@ -65,7 +66,7 @@ const VideoPlayerControls = ({
         </div>
 
         <div className={styles.velocity}>
-          <img src="/icons/playRate.png" alt="volume" />
+          <Image width={30} height={30} src="/icons/playRate.png" alt="volume" />
           <select
             value={playerState.speed}
             onChange={(e) => handleVideoSpeed(e)}
@@ -83,9 +84,9 @@ const VideoPlayerControls = ({
         <div className={styles.volume}>
           <button className={styles.icons} onClick={toggleMute}>
             {!playerState.isMuted ? (
-              <img src="/icons/volume.png" alt="volume" />
+              <Image width={30} height={30} src="/icons/volume.png" alt="volume" />
             ) : (
-              <img src="/icons/mute.png" alt="volume" />
+              <Image width={30} height={30} src="/icons/mute.png" alt="volume" />
             )}
           </button>
           <input
@@ -99,13 +100,13 @@ const VideoPlayerControls = ({
         {window.innerWidth > defaultWidth && !playerState.fullScreen && (
           <div className={styles.theater}>
             <button className={styles.icons} onClick={theater}>
-              <img src="/icons/theater.png" alt="theater" />
+              <Image width={30} height={30} src="/icons/theater.png" alt="theater" />
             </button>
           </div>
         )}
         <div className={styles.fullScreen}>
           <button className={styles.icons} onClick={toggleFullScreen}>
-            <img src="/icons/fullscreen.png" alt="fullscreen" />
+            <Image width={30} height={30} src="/icons/fullscreen.png" alt="fullscreen" />
           </button>
         </div>
       </div>

@@ -4,18 +4,10 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  border: solid 1px white;
   border-radius: 5px;
-  padding: 5px;
 }
 
 .video {
-  width: 100%;
-  height: auto;
-  max-height: 100vh;
-  border-radius: 5px;
-}
-.video_theater {
   width: 100%;
   height: auto;
   max-height: 100vh;
