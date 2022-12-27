@@ -126,7 +126,6 @@ function useVideoPlayer({
     const speed = playerState.speed;
     videoElement.current.playbackRate = speed;
   }, [playerState.speed]);
-
   // changeVideo  -------------------------------------------------------------------------
 
   useEffect(() => {
@@ -157,7 +156,7 @@ function useVideoPlayer({
 
   let countEffect = 0;
   useEffect(() => {
-    if (countEffect === 0 && !deviceInfo.isPortrait) {
+    if (countEffect === 0) {
       countEffect += 1;
       addEventListener("fullscreenchange", (event) => {
         if (document.fullscreen === false) {

@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "/styles/Home.module.css";
+import styles from "/styles/Index.module.css";
 import VideoContainer from "../components/VideoContainer";
 import ListBarVideo from "../components/ListBarVideo";
 import Comments from "../components/Comments";
@@ -17,7 +17,7 @@ const App = () => {
     dataVideos &&
     deviceInfo &&
     currentVideo && (
-      <div className={styles.main}>
+      <div className={!isTheaterMode ? styles.main : styles.main_theater}>
         <div className={!playerState.fullScreen ? styles.Header : styles.Header_fullScreen}>
           <Header />
         </div>
@@ -33,17 +33,17 @@ const App = () => {
           />
         </div>
         <div className={
-          !playerState.fullScreen ? (!isTheaterMode ? styles.div3 : styles.div3_theater) : styles.div3_fullScreen}>
+          !playerState.fullScreen ? (!isTheaterMode ? styles.listVideo : styles.listVideo_theater) : styles.listVideo_fullScreen}>
           <ListBarVideo
             dataVideos={dataVideos}
             currentVideo={currentVideo}
             setCurrentVideo={setCurrentVideo}
           />
         </div>
-        <div className={!playerState.fullScreen ? styles.div4 : styles.div4_fullScreen}>
+        <div className={!playerState.fullScreen ? styles.comments : styles.comments_fullScreen}>
           <Comments item={currentVideo} />
         </div>
-        <div className={!playerState.fullScreen ? styles.div5 : styles.div5_fullScreen}>
+        <div className={!playerState.fullScreen ? styles.footer : styles.footer_fullScreen}>
           <_Footer />
         </div>
       </div >
