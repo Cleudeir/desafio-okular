@@ -76,8 +76,8 @@ const VideoPlayerControls = ({
             <option value="0.75">x0.75</option>
             <option value="1">x1.00</option>
             <option value="1.25">x1.25</option>
-            <option value="1.50">x1.25</option>
-            <option value="1.75">x1.25</option>
+            <option value="1.50">x1.50</option>
+            <option value="1.75">x1.75</option>
             <option value="2">x2.00</option>
           </select>
         </div>
