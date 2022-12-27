@@ -59,6 +59,23 @@ const VideoPlayerControls = ({
             <Image width={30} height={30} src="/icons/next.png" alt="next" />
           </button>
         </div>
+        <div className={styles.volume}>
+          <button className={styles.icons} onClick={toggleMute}>
+            {!playerState.isMuted ? (
+              <Image width={30} height={30} src="/icons/volume.png" alt="volume" />
+            ) : (
+              <Image width={30} height={30} src="/icons/mute.png" alt="volume" />
+            )}
+          </button>
+          <input
+            type="range"
+            min="0"
+            max="100"
+            value={playerState.volume}
+            onChange={(e) => handleVolume(e)}
+          />
+        </div>
+
         <div className={styles.times}>
           <h5>
             {playerState.currentTime} / {playerState.duration}
@@ -81,22 +98,7 @@ const VideoPlayerControls = ({
             <option value="2">x2.00</option>
           </select>
         </div>
-        <div className={styles.volume}>
-          <button className={styles.icons} onClick={toggleMute}>
-            {!playerState.isMuted ? (
-              <Image width={30} height={30} src="/icons/volume.png" alt="volume" />
-            ) : (
-              <Image width={30} height={30} src="/icons/mute.png" alt="volume" />
-            )}
-          </button>
-          <input
-            type="range"
-            min="0"
-            max="100"
-            value={playerState.volume}
-            onChange={(e) => handleVolume(e)}
-          />
-        </div>
+
         {window.innerWidth > defaultWidth && !playerState.fullScreen && (
           <div className={styles.theater}>
             <button className={styles.icons} onClick={theater}>

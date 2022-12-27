@@ -30,6 +30,7 @@ const useVideoPlayer = ({
   };
 
   useEffect(() => {
+
     playerState.isPlaying
       ? videoElement.current.play()
       : videoElement.current.pause();
@@ -42,6 +43,21 @@ const useVideoPlayer = ({
       }
     }
   }, [playerState.isPlaying, videoElement]);
+
+  useEffect(() => {
+    console.log(videoElement)
+    const status = {
+      isPlaying: true,
+      volume: 20,
+      progress: 0,
+      currentTime: convertTime(videoElement.current.currentTime),
+      duration: convertTime(videoElement.current.duration),
+      speed: 1,
+      isMuted: false,
+      fullScreen: false,
+    }
+    setPlayerState(status);
+  }, [videoElement]);
 
   // opacity ------------------------------------------------------------------------------
 
@@ -156,10 +172,6 @@ const useVideoPlayer = ({
     }, 100);
   }, [currentVideo]);
 
-  useEffect(() => {
-    console.log(playerState)
-  }, [playerState]);
-
   // FullScrenn --------------------------------------------------------------------------------------
 
   const toggleFullScreen = () => {
@@ -169,6 +181,7 @@ const useVideoPlayer = ({
       ...playerState,
       fullScreen: !playerState.fullScreen,
     };
+    console.log(state.isPlaying)
     setFullMode(state.fullScreen)
     setPlayerState(state);
   };

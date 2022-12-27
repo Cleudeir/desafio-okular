@@ -7,7 +7,6 @@
   border-radius: 5px;
   color: white;
   padding: 10px;
-  min-height: 300px;
 }
 
 .title {
@@ -16,6 +15,7 @@
   padding: 0px 5px;
   overflow: hidden;
   text-overflow: ellipsis;
+
 }
 
 .description {
