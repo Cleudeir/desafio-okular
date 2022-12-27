@@ -27,7 +27,6 @@ const useVideoPlayer = ({
       isPlaying: !playerState.isPlaying,
     };
     setPlayerState(status);
-    console.log('togglePlay', playerState.isPlaying)
   };
 
   useEffect(() => {
@@ -145,7 +144,6 @@ const useVideoPlayer = ({
   // changeVideo  -------------------------------------------------------------------------
 
   useEffect(() => {
-    console.log('changeVideo', playerState.isPlaying)
     const reset = {
       ...playerState,
       progress: 0,
@@ -168,7 +166,6 @@ const useVideoPlayer = ({
       ...playerState,
       fullScreen: !playerState.fullScreen,
     };
-    console.log('toggleFullScreen', state.isPlaying)
     setPlayerState(state);
     setFullMode(state.fullScreen)
   };
@@ -179,7 +176,6 @@ const useVideoPlayer = ({
       countEffect += 1;
       addEventListener("fullscreenchange", (event) => {
         if (document.fullscreen === false) {
-          console.log('fullscreenchange', playerState.isPlaying)
           if (countEffect === 1) {
             // if (playerState.isPlaying) { togglePlay() }
             const state = {
