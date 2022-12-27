@@ -212,8 +212,8 @@ const useVideoPlayer = ({
     containerElement.current.style.position = "absolute";
     containerElement.current.style.top = 0;
     containerElement.current.style.left = 0;
-    containerElement.current.style.height = "100%";
-    containerElement.current.style.width = "100%";
+    containerElement.current.style.height = "100vh";
+    containerElement.current.style.width = "100vw";
     containerElement.current.style.zIndex = "1";
   }
   function exitfullScreenStyle() {
