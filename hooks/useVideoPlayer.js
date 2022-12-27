@@ -184,6 +184,7 @@ const useVideoPlayer = ({
               ...playerState,
               fullScreen: false,
             };
+            setFullMode(state.fullScreen)
             setPlayerState(state);
             exitFullScreen();
           }
