@@ -44,21 +44,6 @@ const useVideoPlayer = ({
     }
   }, [playerState.isPlaying, videoElement]);
 
-  useEffect(() => {
-    console.log(videoElement)
-    const status = {
-      isPlaying: true,
-      volume: 20,
-      progress: 0,
-      currentTime: convertTime(videoElement.current.currentTime),
-      duration: convertTime(videoElement.current.duration),
-      speed: 1,
-      isMuted: false,
-      fullScreen: false,
-    }
-    setPlayerState(status);
-  }, [videoElement]);
-
   // opacity ------------------------------------------------------------------------------
 
   let inUseHidden = false;
