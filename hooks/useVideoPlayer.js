@@ -10,7 +10,7 @@ const useVideoPlayer = ({
 }) => {
   const [playerState, setPlayerState] = useState({
     isPlaying: false,
-    volume: 20,
+    volume: 100,
     progress: 0,
     currentTime: convertTime(0),
     duration: convertTime(0),
