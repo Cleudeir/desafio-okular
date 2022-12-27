@@ -38,7 +38,7 @@ const VideoContainer = ({
           ref={videoElement}
           onTimeUpdate={handleOnTimeUpdate}
           onClick={() => {
-            !deviceInfo.isPortrait ? togglePlay() : "";
+            !deviceInfo.isPortrait ? togglePlay() : ''
           }}
         />
         <VideoPlayerControls
