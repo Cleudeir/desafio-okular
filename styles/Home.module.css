@@ -2,7 +2,7 @@
   min-height: 100vh;
   display: grid;
   grid-template-columns: 75% 25%;
-  grid-template-rows: 40px auto auto 100px;
+  grid-template-rows: 40px 42.5vw auto 100px;
   grid-column-gap: 0px;
   grid-row-gap: 5px;
   justify-content: flex-start;
@@ -10,24 +10,24 @@
 
 }
 
-.div1 {
+.Header {
   grid-area: 1 / 1 / 2 / 3;
 }
 
-.div1_fullScreen {
+.Header_fullScreen {
   display: none;
 }
 
-.div2 {
+.video {
   grid-area: 2 / 1 / 3 / 2;
   margin: 5px;
-  align-self: start;
+  align-self: flex-end;
 }
 
-.div2_theater {
+.video_theater {
   grid-area: 2 / 1 / 3 / 3;
   margin: 5px;
-  align-self: start;
+  align-self: flex-end;
 }
 
 .div3 {
@@ -83,11 +83,11 @@
     grid-template-rows: 40px auto auto auto;
   }
 
-  .div1 {
+  .Header {
     grid-area: 1 / 1 / 2 / 2;
   }
 
-  .div2_theater {
+  .video_theater {
     grid-area: 2 / 1 / 3 / 2;
   }
 

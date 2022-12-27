@@ -12,11 +12,11 @@ const ListBarVideo = ({ dataVideos, currentVideo, setCurrentVideo }) => {
   }, [currentVideo]);
 
   useEffect(() => {
-    setListVideo(
-      dataVideos.filter((item) =>
-        item.title.toUpperCase().includes(text.toUpperCase())
-      )
-    );
+    let list = dataVideos.filter((item) =>
+      item.title.toUpperCase().includes(text.toUpperCase())
+    )
+    list = list.filter((item) => item.title !== currentVideo.title);
+    setListVideo(list);
   }, [text]);
 
   return (

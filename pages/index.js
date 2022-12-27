@@ -106,10 +106,10 @@ const App = () => {
     deviceInfo &&
     currentVideo && (
       <div className={styles.main}>
-        <div className={!useFullMode ? styles.div1 : styles.div3_fullScreen}>
+        <div className={!useFullMode ? styles.Header : styles.Header_fullScreen}>
           <Header />
         </div>
-        <div className={!useTheaterMode ? styles.div2 : styles.div2_theater}>
+        <div className={!useTheaterMode ? styles.video : styles.video_theater}>
           <VideoContainer
             currentVideoChange={currentVideoChange}
             currentVideo={currentVideo}
