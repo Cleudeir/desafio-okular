@@ -6,7 +6,7 @@ function _Footer() {
   return (
     <div className={styles.container}>
       <h4>Copyright 2022</h4>
-      <Link href="https://github.com/Cleudeir">
+      <Link href="https://github.com/Cleudeir/desafio-okular">
         <Image
           width={30}
           height={30}
@@ -15,7 +15,7 @@ function _Footer() {
           style={{ filter: "invert(1)", padding: "5px", zIndex: -1 }}
         />
       </Link>
-      <Link href="https://github.com/Cleudeir">
+      <Link href="https://github.com/Cleudeir/desafio-okular">
         <h4> by Cleudeir</h4>
       </Link>
     </div>
