@@ -27,12 +27,6 @@ function useVideoPlayer({
     }
   }, [playerState.isPlaying]);
 
-
-  useEffect(() => {
-    console.log(playerState.isPlaying, playerState.speed, playerState.currentTime)
-  }, [playerState])
-
-
   // opacity ------------------------------------------------------------------------------
 
   let inUseHidden = false;
@@ -139,7 +133,6 @@ function useVideoPlayer({
   // changeVideo  -------------------------------------------------------------------------
 
   useEffect(() => {
-    console.log('changeVideo')
     const reset = {
       ...playerState,
       progress: 0,
