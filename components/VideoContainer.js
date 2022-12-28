@@ -31,6 +31,7 @@ const VideoContainer = ({
         onMouseMove={holdOpacityEnter}
       >
         <video
+          controls="false"
           className={styles.video}
           src={currentVideo.url}
           poster={currentVideo.poster}
