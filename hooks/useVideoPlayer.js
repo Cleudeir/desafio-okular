@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 function useVideoPlayer({
-  videoElement, controlElement, containerElement, deviceInfo, currentVideo, currentVideoChange, playerState, setPlayerState
+  videoElement, controlElement, currentVideo, currentVideoChange, playerState, setPlayerState
 }) {
   // Playing --------------------------------------------------------------------------------------
 
@@ -25,7 +25,13 @@ function useVideoPlayer({
         holdOpacityEnter();
       }
     }
-  }, [playerState.isPlaying, videoElement]);
+  }, [playerState.isPlaying]);
+
+
+  useEffect(() => {
+    console.log(playerState.isPlaying, playerState.speed, playerState.currentTime)
+  }, [playerState])
+
 
   // opacity ------------------------------------------------------------------------------
 
@@ -51,7 +57,7 @@ function useVideoPlayer({
     playerState.isMuted
       ? (videoElement.current.muted = true)
       : (videoElement.current.muted = false);
-  }, [playerState.isMuted, videoElement]);
+  }, [playerState.isMuted]);
 
   const toggleMute = () => {
     setPlayerState({
@@ -114,6 +120,14 @@ function useVideoPlayer({
       speed,
     });
   };
+
+  useEffect(() => {
+    const speed = playerState.speed;
+    videoElement.current.playbackRate = speed;
+  }, [playerState.speed]);
+
+  // Volume  ---------------------------------------------------------------------------
+
   const handleVolume = (event) => {
     const volume = Number(event.target.value);
     videoElement.current.volume = volume / 100;
@@ -122,13 +136,10 @@ function useVideoPlayer({
       volume,
     });
   };
-  useEffect(() => {
-    const speed = playerState.speed;
-    videoElement.current.playbackRate = speed;
-  }, [playerState.speed]);
   // changeVideo  -------------------------------------------------------------------------
 
   useEffect(() => {
+    console.log('changeVideo')
     const reset = {
       ...playerState,
       progress: 0,
@@ -137,9 +148,12 @@ function useVideoPlayer({
     };
     setTimeout(() => {
       setPlayerState(reset);
-      if (playerState.isPlaying)
-        videoElement.current.play();
-      videoElement.current.playbackRate = reset.speed;
+
+      if (playerState.isPlaying) {
+        videoElement.current.play()
+      }
+      videoElement.current.playbackRate = playerState.speed;
+
     }, 100);
   }, [currentVideo]);
 
@@ -161,7 +175,6 @@ function useVideoPlayer({
       addEventListener("fullscreenchange", (event) => {
         if (document.fullscreen === false) {
           if (countEffect === 1) {
-            // if (playerState.isPlaying) { togglePlay() }
             const state = {
               ...playerState,
               fullScreen: false,
@@ -175,47 +188,14 @@ function useVideoPlayer({
     }
   }, []);
 
-  function enterfullScreenStylePortrait() {
-    containerElement.current.style.position = "absolute";
-    containerElement.current.style.transform = "rotate(90deg)";
-    containerElement.current.style.transformOrigin = "bottom left";
-    containerElement.current.style.padding = 0;
-    containerElement.current.style.marginTop = "-100vw";
-    containerElement.current.style.objectFit = "cover";
-    containerElement.current.style.top = 0;
-    containerElement.current.style.left = 0;
-    containerElement.current.style.height = "100vw";
-    containerElement.current.style.width = "100vh";
-    containerElement.current.style.zIndex = "1";
-    containerElement.current.style.overflo = 'hidden';
-  }
-  function enterfullScreenStyleWidth() {
-    containerElement.current.style.position = "absolute";
-    containerElement.current.style.top = 0;
-    containerElement.current.style.left = 0;
-    containerElement.current.style.height = "100vh";
-    containerElement.current.style.width = "100vw";
-    containerElement.current.style.zIndex = "1";
-  }
-  function exitfullScreenStyle() {
-    containerElement.current.style.position = "relative";
-    containerElement.current.style.transform = "rotate(0deg)";
-    containerElement.current.style.padding = "0px";
-    containerElement.current.style.margin = "0px";
-    containerElement.current.style.objectFit = "cover";
-    containerElement.current.style.height = "auto";
-    containerElement.current.style.width = "100%";
-  }
+
   function exitFullScreen() {
     if (document.mozCancelFullScreen) {
       document.mozCancelFullScreen();
-      exitfullScreenStyle();
     } else if (document.webkitExitFullscreen) {
       document.webkitExitFullscreen();
-      exitfullScreenStyle();
     } else if (document.exitFullscreen) {
       document.exitFullscreen();
-      exitfullScreenStyle();
     }
   }
 
@@ -232,11 +212,6 @@ function useVideoPlayer({
   function fullScreenChange() {
     if (document.documentElement) {
       if (playerState.fullScreen === false) {
-        if (deviceInfo && deviceInfo.isPortrait) {
-          enterfullScreenStylePortrait();
-        } else {
-          enterfullScreenStyleWidth();
-        }
         enterFullScreen();
       } else {
         exitFullScreen();

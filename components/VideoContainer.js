@@ -7,13 +7,11 @@ const VideoContainer = ({
   currentVideo,
   currentVideoChange,
   theater,
-  deviceInfo,
   defaultWidth,
   playerState,
   setPlayerState,
 }) => {
   const videoElement = useRef(null);
-  const containerElement = useRef(null);
   const controlElement = useRef(null);
 
   const playerHook = useVideoPlayer({
@@ -21,17 +19,15 @@ const VideoContainer = ({
     setPlayerState,
     videoElement,
     controlElement,
-    containerElement,
     currentVideoChange,
-    deviceInfo,
     currentVideo,
   });
   const { togglePlay, holdOpacityEnter, handleOnTimeUpdate } = playerHook;
+
   return (
     currentVideo && (
       <div
         className={styles.container}
-        ref={containerElement}
         onMouseMove={holdOpacityEnter}
       >
         <video
@@ -41,7 +37,7 @@ const VideoContainer = ({
           ref={videoElement}
           onTimeUpdate={handleOnTimeUpdate}
           onClick={() => {
-            !deviceInfo.isPortrait ? togglePlay() : ''
+            togglePlay()
           }}
         />
         <VideoPlayerControls

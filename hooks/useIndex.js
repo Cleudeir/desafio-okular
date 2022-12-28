@@ -13,7 +13,6 @@ function useIndex() {
 
     const [dataVideos, setDataVideos] = useState(false);
     const [currentVideo, setCurrentVideo] = useState(false);
-    const [deviceInfo, setDeviceInfo] = useState(false);
     const [defaultWidth] = useState(769);
     const [isTheaterMode, setIsTheaterMode] = useState(false)
     const [playerState, setPlayerState] = useState(false);
@@ -54,13 +53,6 @@ function useIndex() {
     // dimension | theater--------------------------------------------------------------------------------------
 
     useEffect(() => {
-        const dimension = {
-            height: window.innerHeight,
-            width: window.innerWidth,
-            isPortrait: window.screen.width < window.screen.height,
-        };
-        setDeviceInfo(dimension);
-
         if (window.innerWidth < defaultWidth) {
             setIsTheaterMode(true);
         }
@@ -71,7 +63,6 @@ function useIndex() {
                 setIsTheaterMode(false);
             }
         });
-
     }, []);
 
     // theater --------------------------------------------------------------------------------------
@@ -83,6 +74,6 @@ function useIndex() {
     }
 
     // return --------------------------------------------------------------------------------------
-    return { playerState, dataVideos, deviceInfo, currentVideo, currentVideoChange, setCurrentVideo, isTheaterMode, setPlayerState, theater, defaultWidth };
+    return { playerState, dataVideos, currentVideo, currentVideoChange, setCurrentVideo, isTheaterMode, setPlayerState, theater, defaultWidth };
 }
 export default useIndex;

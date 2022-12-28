@@ -10,24 +10,23 @@ import useIndex from '../hooks/useIndex';
 
 const App = () => {
 
-  const { playerState, dataVideos, deviceInfo, currentVideo, setCurrentVideo, currentVideoChange, isTheaterMode, setPlayerState, theater, defaultWidth } = useIndex()
+  const { playerState, dataVideos, currentVideo, setCurrentVideo, currentVideoChange, isTheaterMode, setPlayerState, theater, defaultWidth } = useIndex()
+
 
   return (
     playerState &&
     dataVideos &&
-    deviceInfo &&
     currentVideo && (
-      <div className={!isTheaterMode ? styles.main : styles.main_theater}>
+      <div className={!playerState.fullScreen ? !isTheaterMode ? styles.main : styles.main_theater : styles.main_fullScreen}>
         <div className={!playerState.fullScreen ? styles.Header : styles.Header_fullScreen}>
           <Header />
         </div>
-        <div className={!isTheaterMode ? styles.video : styles.video_theater}>
+        <div className={!playerState.fullScreen ? !isTheaterMode ? styles.video : styles.video_theater : styles.video_fullScreen}>
           <VideoContainer
             playerState={playerState}
             setPlayerState={setPlayerState}
             currentVideoChange={currentVideoChange}
             currentVideo={currentVideo}
-            deviceInfo={deviceInfo}
             theater={theater}
             defaultWidth={defaultWidth}
           />
