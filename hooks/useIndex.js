@@ -35,7 +35,8 @@ function useIndex() {
                 isMuted: false,
                 fullScreen: false,
             })
-            if (window.innerWidth < window.innerHeight) {
+            console.log(window.screen.width, window.screen.height)
+            if (window.screen.width < window.screen.height) {
                 setIsPortrait(true)
             }
         })();
