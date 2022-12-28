@@ -14,6 +14,7 @@ function useIndex() {
     const [dataVideos, setDataVideos] = useState(false);
     const [currentVideo, setCurrentVideo] = useState(false);
     const [defaultWidth] = useState(769);
+    const [isPortrait, setIsPortrait] = useState(false)
     const [isTheaterMode, setIsTheaterMode] = useState(false)
     const [playerState, setPlayerState] = useState(false);
 
@@ -34,6 +35,9 @@ function useIndex() {
                 isMuted: false,
                 fullScreen: false,
             })
+            if (window.innerWidth < window.innerHeight) {
+                setIsPortrait(true)
+            }
         })();
     }, []);
 
@@ -74,6 +78,6 @@ function useIndex() {
     }
 
     // return --------------------------------------------------------------------------------------
-    return { playerState, dataVideos, currentVideo, currentVideoChange, setCurrentVideo, isTheaterMode, setPlayerState, theater, defaultWidth };
+    return { playerState, dataVideos, isPortrait, currentVideo, currentVideoChange, setCurrentVideo, isTheaterMode, setPlayerState, theater, defaultWidth };
 }
 export default useIndex;
