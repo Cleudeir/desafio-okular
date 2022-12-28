@@ -23,7 +23,7 @@ function useIndex() {
         (async () => {
             const data = await getData();
             setDataVideos(data);
-            setCurrentVideo(data[0]);
+            setCurrentVideo(data[1]);
             setPlayerState({
                 isPlaying: false,
                 volume: 100,
