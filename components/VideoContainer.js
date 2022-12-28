@@ -37,7 +37,7 @@ const VideoContainer = ({
           ref={videoElement}
           onTimeUpdate={handleOnTimeUpdate}
           onClick={() => {
-            togglePlay()
+            window.screen.height < window.screen.width ? togglePlay() : ''
           }}
         />
         <VideoPlayerControls
