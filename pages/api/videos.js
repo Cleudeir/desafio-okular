@@ -15,8 +15,8 @@ export default async function handler(req, res) {
     const obj = {
       id,
       title,
-      url: item.video_files[0].link,
-      poster: item.video_pictures[2].picture || item.video_pictures[1].picture || item.video_pictures[0].picture,
+      url: item.video_files[0].link || item.video_files[1].link || item.video_files[2].link,
+      poster: item.video_pictures[0].picture || item.video_pictures[1].picture || item.video_pictures[2].picture,
       description: `autor: ${item.user.name} @${item.user.name.replace('https://www.pexels.com', '')}`,
     }
     return obj
