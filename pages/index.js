@@ -26,8 +26,7 @@ const App = () => {
 
   return (
     playerState &&
-    dataVideos &&
-    currentVideo && (
+    dataVideos && (
       <div className={!isFullScreen ?
         !isTheaterMode ? styles.main : styles.main_theater :
         !isPortrait ? styles.main_fullScreen : styles.main_fullScreenPortrait}>

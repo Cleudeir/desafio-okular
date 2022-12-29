@@ -7,6 +7,7 @@ const CardVideo = ({ item, setCurrentVideo }) => {
       className={styles.container}
       onClick={() => {
         setCurrentVideo(item);
+        console.log('click')
         window.scrollTo(0, 0)
       }}
     >
