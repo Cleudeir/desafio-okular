@@ -88,7 +88,6 @@ function useIndex() {
                     document.mozFullScreen ||
                     document.webkitIsFullScreen;
                 setIsFullScreen(isfull)
-                console.log(isfull)
             }
             )
         }
