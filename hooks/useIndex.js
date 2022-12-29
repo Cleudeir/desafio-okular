@@ -10,14 +10,24 @@ async function getData() {
 }
 
 
-function useIndex({ playerState, setPlayerState }) {
+function useIndex() {
 
     const [dataVideos, setDataVideos] = useState(false);
     const [currentVideo, setCurrentVideo] = useState(false);
     const [defaultWidth] = useState(769);
     const [isPortrait, setIsPortrait] = useState(false)
     const [isTheaterMode, setIsTheaterMode] = useState(false)
+    const [isFullScreen, setIsFullScreen] = useState(false)
 
+    const [playerState, setPlayerState] = useState({
+        isPlaying: false,
+        volume: 100,
+        progress: 0,
+        currentTime: "0:00",
+        duration: "0:00",
+        speed: 1,
+        isMuted: false,
+    });
 
     // Video list | VideoState --------------------------------------------------------------------------------------
 
@@ -26,7 +36,6 @@ function useIndex({ playerState, setPlayerState }) {
             const data = await getData();
             setDataVideos(data);
             setCurrentVideo(data[1]);
-            console.log(window.screen.width, window.screen.height)
             if (window.screen.width < window.screen.height) {
                 setIsPortrait(true)
             }
@@ -69,7 +78,24 @@ function useIndex({ playerState, setPlayerState }) {
         }
     }
 
+    // fullscreen --------------------------------------------------------------------------------------
+    let count = 0
+    useEffect(() => {
+        if (count === 0) {
+            addEventListener('fullscreenchange', () => {
+                const isfull = document.fullScreen ||
+                    document.msFullScreen ||
+                    document.mozFullScreen ||
+                    document.webkitIsFullScreen;
+                setIsFullScreen(isfull)
+                console.log(isfull)
+            }
+            )
+        }
+        count += 1
+    }, [])
+
     // return --------------------------------------------------------------------------------------
-    return { playerState, dataVideos, isPortrait, currentVideo, currentVideoChange, setCurrentVideo, isTheaterMode, setPlayerState, theater, defaultWidth };
+    return { playerState, setPlayerState, dataVideos, isPortrait, currentVideo, currentVideoChange, setCurrentVideo, isTheaterMode, theater, isFullScreen, defaultWidth };
 }
 export default useIndex;

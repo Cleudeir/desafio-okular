@@ -7,6 +7,7 @@ const VideoPlayerControls = ({
   defaultWidth,
   controlElement,
   currentVideoChange,
+  isFullScreen
 }) => {
   const {
     playerState,
@@ -18,6 +19,7 @@ const VideoPlayerControls = ({
     toggleFullScreen,
     holdOpacityEnter,
   } = playerHook;
+
   return (
     <div className={styles.container} ref={controlElement}>
       <div className={styles.progress}>
@@ -97,7 +99,7 @@ const VideoPlayerControls = ({
             onChange={(e) => handleVolume(e)}
           />
         </div>
-        {window.innerWidth > defaultWidth && !playerState.fullScreen && (
+        {window.innerWidth > defaultWidth && !isFullScreen && (
           <div className={styles.theater}>
             <button className={styles.icons} onClick={theater}>
               <Image width={30} height={30} src="/icons/theater.png" alt="theater" />

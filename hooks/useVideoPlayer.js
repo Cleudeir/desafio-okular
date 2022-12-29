@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 function useVideoPlayer({
   videoElement, controlElement, currentVideo, currentVideoChange, playerState, setPlayerState
 }) {
@@ -166,11 +166,6 @@ function useVideoPlayer({
     } else {
       enterFullScreen();
     }
-    const state = {
-      ...playerState,
-      fullScreen: !playerState.fullScreen,
-    };
-    setPlayerState(state);
   };
 
   function exitFullScreen() {

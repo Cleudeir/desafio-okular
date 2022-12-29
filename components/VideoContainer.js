@@ -10,6 +10,7 @@ const VideoContainer = ({
   defaultWidth,
   playerState,
   setPlayerState,
+  isFullScreen
 }) => {
   const videoElement = useRef(null);
   const controlElement = useRef(null);
@@ -46,6 +47,7 @@ const VideoContainer = ({
           controlElement={controlElement}
           defaultWidth={defaultWidth}
           theater={theater}
+          isFullScreen={isFullScreen}
         />
       </div>
     )
