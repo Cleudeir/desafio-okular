@@ -34,13 +34,14 @@
 .listVideo,
 .listVideo_theater {
   grid-area: 2 / 2 / 4 / 3;
-  margin: 0px 5px;
+  padding: 0px 5px;
   align-self: stretch;
   justify-self: stretch;
 }
 
 .listVideo_theater {
   grid-area: 3 / 2 / 4 / 3;
+  width: 100%;
 }
 
 .comments {
@@ -121,10 +122,12 @@
 
   .video_theater {
     grid-area: 2 / 1 / 3 / 2;
+
   }
 
   .listVideo_theater {
     grid-area: 4 / 1 / 5 / 2;
+
   }
 
   .comments {

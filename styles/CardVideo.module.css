@@ -11,6 +11,9 @@
 
 .tumblr {
   grid-area: 1 / 1 / 3 / 2;
+  width: 100%;
+  align-self: stretch;
+  justify-self: stretch;
 }
 
 .title {
@@ -42,6 +45,7 @@
     grid-column-gap: 0px;
     grid-row-gap: 0px;
     cursor: pointer;
+    width: 100%;
   }
 
   .tumblr {
