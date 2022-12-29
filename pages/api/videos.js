@@ -35,7 +35,7 @@ export default async function handler(req, res) {
       title: "Capital Cities - Safe And Sound (Official Video)",
       url: "/videos/005.mp4",
       poster: "/poster/005.jpg",
-      description: "676,941,301 views  Apr 25, 2013",
+      description: "676,941,501 views  Apr 25, 2013",
     },
   ]);
 }
