@@ -28,7 +28,7 @@ const VideoContainer = ({
   return (
     currentVideo && (
       <div
-        className={styles.container}
+        className={!isFullScreen ? styles.container : styles.container_fullScreen}
         onMouseMove={holdOpacityEnter}
       >
         <video
