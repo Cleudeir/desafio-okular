@@ -105,7 +105,7 @@
 @media (max-width: 769px) {
   .main_theater {
     grid-template-columns: 55% 45%;
-    grid-template-rows: 40px auto auto auto;
+    grid-template-rows: 40px auto auto 50px;
   }
 }
 
@@ -125,7 +125,6 @@
 
   .listVideo_theater {
     grid-area: 4 / 1 / 5 / 2;
-    height: 100vh;
   }
 
   .comments {
