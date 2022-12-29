@@ -37,7 +37,7 @@ function useIndex() {
         (async () => {
             const data = await getData();
             setDataVideos(data);
-            setCurrentVideo(data[0]);
+            setCurrentVideo(data[Math.ceil(data.length / 3)]);
             if (window.screen.width < window.screen.height) {
                 setIsPortrait(true)
             }
