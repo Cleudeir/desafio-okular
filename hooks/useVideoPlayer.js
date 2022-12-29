@@ -130,6 +130,7 @@ function useVideoPlayer({
       volume,
     });
   };
+
   // changeVideo  -------------------------------------------------------------------------
 
   useEffect(() => {
@@ -169,8 +170,6 @@ function useVideoPlayer({
   };
 
   function exitFullScreen() {
-    // const playerStateNow = playerState
-    //  console.log(playerStateNow)
     if (document.mozCancelFullScreen) {
       document.mozCancelFullScreen();
     } else if (document.webkitExitFullscreen) {
@@ -178,8 +177,6 @@ function useVideoPlayer({
     } else if (document.exitFullscreen) {
       document.exitFullscreen();
     }
-    // console.log(playerStateNow)
-    // setPlayerState(playerStateNow)
   }
 
   function enterFullScreen() {
