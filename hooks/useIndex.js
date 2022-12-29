@@ -3,7 +3,9 @@ import { useEffect, useState } from "react";
 async function getData() {
     try {
         const request = await fetch("/api/videos");
-        return await request.json();
+        const { result, videos } = await request.json();
+        console.log({ result, videos })
+        return result
     } catch (error) {
         console.log(error)
     }
