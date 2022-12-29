@@ -1,8 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 function useVideoPlayer({
   videoElement, controlElement, currentVideo, currentVideoChange, playerState, setPlayerState
 }) {
-  // Playing --------------------------------------------------------------------------------------
+  // Playing ------------------------------------------------------------------------------
 
   function togglePlay() {
     const status = {
@@ -150,10 +150,22 @@ function useVideoPlayer({
     }, 100);
   }, [currentVideo]);
 
-  // FullScrenn --------------------------------------------------------------------------------------
+  // FullScrenn -------------------------------------------------------------------------------
+
+  function isFullScreen() {
+    const isfull = document.fullScreen ||
+      document.msFullScreen ||
+      document.mozFullScreen ||
+      document.webkitIsFullScreen;
+    return isfull
+  }
 
   const toggleFullScreen = () => {
-    fullScreenChange();
+    if (isFullScreen()) {
+      exitFullScreen();
+    } else {
+      enterFullScreen();
+    }
     const state = {
       ...playerState,
       fullScreen: !playerState.fullScreen,
@@ -161,28 +173,9 @@ function useVideoPlayer({
     setPlayerState(state);
   };
 
-  let countEffect = 0;
-  useEffect(() => {
-    if (countEffect === 0) {
-      countEffect += 1;
-      addEventListener("fullscreenchange", (event) => {
-        if (document.fullscreen === false) {
-          if (countEffect === 1) {
-            const state = {
-              ...playerState,
-              fullScreen: false,
-            };
-            setPlayerState(state);
-            exitFullScreen();
-            togglePlay()
-          }
-        }
-      });
-    }
-  }, []);
-
-
   function exitFullScreen() {
+    // const playerStateNow = playerState
+    //  console.log(playerStateNow)
     if (document.mozCancelFullScreen) {
       document.mozCancelFullScreen();
     } else if (document.webkitExitFullscreen) {
@@ -190,6 +183,8 @@ function useVideoPlayer({
     } else if (document.exitFullscreen) {
       document.exitFullscreen();
     }
+    // console.log(playerStateNow)
+    // setPlayerState(playerStateNow)
   }
 
   function enterFullScreen() {
@@ -199,16 +194,6 @@ function useVideoPlayer({
       document.documentElement.webkitRequestFullscreen();
     } else if (document.documentElement.msRequestFullscreen) {
       document.documentElement.msRequestFullscreen();
-    }
-  }
-
-  function fullScreenChange() {
-    if (document.documentElement) {
-      if (playerState.fullScreen === false) {
-        enterFullScreen();
-      } else {
-        exitFullScreen();
-      }
     }
   }
 

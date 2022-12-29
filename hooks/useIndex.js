@@ -9,14 +9,15 @@ async function getData() {
     }
 }
 
-function useIndex() {
+
+function useIndex({ playerState, setPlayerState }) {
 
     const [dataVideos, setDataVideos] = useState(false);
     const [currentVideo, setCurrentVideo] = useState(false);
     const [defaultWidth] = useState(769);
     const [isPortrait, setIsPortrait] = useState(false)
     const [isTheaterMode, setIsTheaterMode] = useState(false)
-    const [playerState, setPlayerState] = useState(false);
+
 
     // Video list | VideoState --------------------------------------------------------------------------------------
 
@@ -25,16 +26,6 @@ function useIndex() {
             const data = await getData();
             setDataVideos(data);
             setCurrentVideo(data[1]);
-            setPlayerState({
-                isPlaying: false,
-                volume: 100,
-                progress: 0,
-                currentTime: "0:00",
-                duration: "0:00",
-                speed: 1,
-                isMuted: false,
-                fullScreen: false,
-            })
             console.log(window.screen.width, window.screen.height)
             if (window.screen.width < window.screen.height) {
                 setIsPortrait(true)
