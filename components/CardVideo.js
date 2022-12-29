@@ -1,10 +1,10 @@
-import Image from "next/image";
 import styles from "../styles/CardVideo.module.css";
 
 const CardVideo = ({ item, setCurrentVideo }) => {
   return (
     <div
       className={styles.container}
+
       onClick={() => {
         setCurrentVideo(item);
         console.log('click')
@@ -12,11 +12,28 @@ const CardVideo = ({ item, setCurrentVideo }) => {
       }}
     >
       <div className={styles.tumblr}>
-        <Image
-          width={854}
-          height={480}
-          src={item.poster} alt={item.title} />
-      </div>
+        <div style={
+          {
+            margin: 0,
+            padding: 0,
+            backgroundImage: `url(${item.poster})`,
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }} >
+          <div
+            style={{
+              position: 'relative',
+              margin: 0,
+              padding: 0,
+              width: '16em',
+              maxHeight: 160,
+              height: '8em',
+            }}
+          ></div>
+        </div>
+
+      </div >
       <div className={styles.title}>
         <h3>{item.title}</h3>
       </div>

@@ -31,13 +31,17 @@ const ListBarVideo = ({ dataVideos, currentVideo, setCurrentVideo }) => {
           }}
           placeholder="Busca"
         />
-        {listVideo.map((item) => (
-          <CardVideo
-            key={item.title + Math.random()}
-            setCurrentVideo={setCurrentVideo}
-            item={item}
-          />
-        ))}
+        <div className={styles.videos}>
+          <div className={styles.rowVideos}>
+            {listVideo.map((item) => (
+              <CardVideo
+                key={item.title + Math.random()}
+                setCurrentVideo={setCurrentVideo}
+                item={item}
+              />
+            ))}
+          </div>
+        </div>
       </div>
     )
   );

@@ -6,7 +6,7 @@ export default async function handler(req, res) {
   const client = createClient(String(process.env.API_KEY));
   const query = 'Nature';
 
-  const request = await client.videos.search({ query, per_page: 30 })
+  const request = await client.videos.search({ query, per_page: 80 })
 
   const videos = await request.videos
 
@@ -17,7 +17,7 @@ export default async function handler(req, res) {
       title,
       url: item.video_files[0].link,
       poster: item.video_pictures[2].picture || item.video_pictures[1].picture || item.video_pictures[0].picture,
-      description: `autor: ${item.user.name} nick: ${item.user.name.replace('https://www.pexels.com', '')}`,
+      description: `autor: ${item.user.name} @${item.user.name.replace('https://www.pexels.com', '')}`,
     }
     return obj
   })

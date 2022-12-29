@@ -22,7 +22,6 @@
 
 .video,
 .video_theater {
-  background-color: aqua;
   grid-area: 2 / 1 / 3 / 2;
   align-self: stretch;
   justify-self: stretch;
@@ -35,8 +34,6 @@
 .listVideo,
 .listVideo_theater {
   grid-area: 2 / 2 / 4 / 3;
-  max-height: 100vh;
-  overflow-y: scroll;
   margin: 0px 5px;
   align-self: stretch;
   justify-self: stretch;

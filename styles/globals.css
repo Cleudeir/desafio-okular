@@ -45,3 +45,16 @@ video::-o-media-controls,
 video::-ms-media-controls {
   display: none !important;
 }
+
+::-webkit-scrollbar {
+  width: .8em;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(11, 10, 10, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+}
